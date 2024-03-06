@@ -1,0 +1,49 @@
+:root {
+  color-scheme: light dark;
+  --black: #111111;
+  --white: #fdfdfd;
+  --green: #22cc88;
+  --blue: #0055ff;
+  --purple: #8855ff;
+  --red: #ff0055;
+  --orange: #ee4444;
+  --yellow: #ffcc00;
+  --mustard: #ffaa00;
+
+  --background: var(--white);
+  --accent: var(--black);
+}
+html{
+  height: 100vh;
+}
+body {
+  margin: 0;
+  // place-items: center;//заменяет align-items и justify-items; place-items: center start;
+  
+}
+body, #root{
+  overflow: hidden;
+  height: 100%;
+}
+#root {
+  display: flex;
+  flex-direction: column;
+}
+.content_app{
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+
+.progress-bar {
+  // position: fixed;
+ 
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--red);
+  transform-origin: 0%;
+}
+
