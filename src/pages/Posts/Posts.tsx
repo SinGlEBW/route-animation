@@ -1,10 +1,7 @@
-import { Preloader } from '@/components/common/Preloader/Preloader';
 import React from "react";
 
 
-const PostsMemo = (props) => {
-
-
+const PostsMemo = () => {
   return (
     <div className='posts'>
       <h1>Посты</h1>
@@ -16,7 +13,6 @@ const PostsMemo = (props) => {
       
       </p>
     </div>
-
   )
 };
 

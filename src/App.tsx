@@ -1,12 +1,14 @@
-import React from 'react'
+import React from 'react';
 import { Container } from '@mui/material'
 import { RouteObject, useLocation, useRoutes } from 'react-router-dom'
 
 import { Home, Posts, Settings } from './pages'
 import { Header } from './components/Header/Header'
-import { RouteAnimation } from './RouteAnimation/RouteAnimation'
+import { RouteAnimation } from 'route-animation'
 import { FooterNav } from './components/FooterNav/FooterNav'
 import { CONST_ROUTES_PRIVATE } from './CONTS/CONST_ROUTES'
+
+
 
 const itemsRoutes: RouteObject[] = [
   { path: CONST_ROUTES_PRIVATE.PAGE_HOME, element: <Home /> },

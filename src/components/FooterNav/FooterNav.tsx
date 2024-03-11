@@ -34,7 +34,7 @@ const FooterNavMemo = () => {
           value={value}
           indicatorColor="secondary"
           textColor='secondary'
-          onChange={(event, newValue) => {
+          onChange={(_, newValue) => {
             setValue(newValue);
           }}
 

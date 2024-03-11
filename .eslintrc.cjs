@@ -1,9 +1,9 @@
 module.exports = {
   root: true,
-  env: { browser: true, es2020: true },
+  env: { browser: true, es2020: true, node: true, es6: true },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    // 'plugin:@typescript-eslint/recommended',//убрать данное правило т.к. настраивать будем под себя
     'plugin:react-hooks/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
@@ -14,6 +14,17 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    "@typescript-eslint/no-explicit-any": "off"
-  },
+    "no-debugger": "off",
+    "@typescript-eslint/no-explicit-any": "off",//будем местами использовать any в ts
+    "@typescript-eslint/no-unused-vars": "off",//
+    "no-unused-vars": "off",//убрать левые подчёркивания красным.
+    /* Обязательно указывать const там где это действительно нужно */
+    "prefer-const": ["error", {
+      "destructuring": "any",
+      "ignoreReadBeforeAssign": true
+    }],
+    "@typescript-eslint/no-undef": "off",
+    'no-undef': 'off',
+  }
+
 }

@@ -1,5 +1,5 @@
-import { styled } from '@mui/material';
 import React, { FC, ReactElement, cloneElement, useCallback, useMemo } from "react"
+import { styled } from '@mui/material';
 import { Navigate, NavigateProps, Route, RouteProps } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
@@ -39,7 +39,7 @@ const getTransformStyles = (transformFn: string, max: string) => ({
   }
 });
 
-const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, timing, direction, ...props }) => {
+const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, timing, direction }) => {
   return {
     display: 'grid',
     '& > .item': {
@@ -106,7 +106,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
           {...cssTransitionProps}
         >
           {
-            (state) => {
+            () => {
               return (
                 <div className={cn('item')}>
                   {children}

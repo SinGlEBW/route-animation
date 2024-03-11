@@ -5,9 +5,13 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
+    
+   
+    // "outDir": "dist",
+    "declaration": true,
+    "typeRoots": ["./dist/route-animation.d.ts"],
     "moduleResolution": "bundler",
+
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "noImplicitAny": false,
@@ -17,10 +21,10 @@
 
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "./index.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -30,15 +30,9 @@ const RouteAnimationMemo:FC<RouteAnimationMemoProps> = (props) => {
 
   return (
     <>
-    <ReactTransition mode='slide' direction={direction.current} keyAnimation={handleDataRoute.path as string} {...p}>
-      {children}
-    </ReactTransition>
-    {/* <SpringSlideRoutes  direction={direction.current} keyAnimation={handleDataRoute.path as string}>
-      {children}
-    </SpringSlideRoutes> */}
-    {/* <FramerSlideRoutes direction={direction.current}  keyAnimation={handleDataRoute.path}>
-      {children}
-    </FramerSlideRoutes> */}
+      <ReactTransition mode='slide' direction={direction.current} keyAnimation={handleDataRoute.path as string} {...p}>
+        {children}
+      </ReactTransition>
     </>
   )
 }
