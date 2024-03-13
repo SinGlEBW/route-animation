@@ -6,11 +6,14 @@
     "module": "ESNext",
     "skipLibCheck": true,
     
-   
+
+    // "declaration": true,
+    // "listFiles": true
+    // "declarationDir": "./types",
     // "outDir": "dist",
-    "declaration": true,
-    "typeRoots": ["./dist/route-animation.d.ts"],
+    // "typeRoots": ["./dist/route-animation.d.ts"],
     "moduleResolution": "bundler",
+    
 
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
@@ -25,6 +28,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src", "./index.ts"],
+  "include": ["src", "src/lib"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

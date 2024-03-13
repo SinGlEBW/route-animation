@@ -1,6 +1,6 @@
 {
   "name": "route-animation",
-  "version": "1.0.3",
+  "version": "1.0.9",
   "author": "SinGlEBW",
   "license": "MIT",
   "repository": {
@@ -8,20 +8,15 @@
     "url": "git+https://github.com/SinGlEBW/route-animation.git"
   },
   "type": "module",
-  "main": "dist/route-animation.umd.js",
-  "module": "dist/route-animation.es.js",
-  "types": "dist/route-animation.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/route-animation.es.js",
-      "require": "./dist/route-animation.umd.js"
-    }
-  },
+  "module": "./dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "./dist"
+    "dist"
   ],
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "directory": "dist"
   },
   "keywords": [
     "react",
@@ -29,7 +24,7 @@
   ],
   "scripts": {
     "start": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc --p ./tsconfig-build.json && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -42,7 +37,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.2",
-    "route-animation": "^1.0.2",
+    "route-animation": "^1.0.9",
     "sass": "^1.71.1",
     "uuid": "^9.0.1"
   },
@@ -56,8 +51,11 @@
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "glob": "^10.3.10",
+    "json": "^11.0.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.4",
-    "vite-plugin-dts": "^3.7.3"
+    "vite-plugin-dts": "^3.7.3",
+    "vite-plugin-lib-inject-css": "^2.0.0"
   }
 }

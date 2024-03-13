@@ -1,1 +1,0 @@
-export { RouteAnimation } from './src/RouteAnimation'

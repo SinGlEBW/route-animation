@@ -4,9 +4,10 @@ import { RouteObject, useLocation, useRoutes } from 'react-router-dom'
 
 import { Home, Posts, Settings } from './pages'
 import { Header } from './components/Header/Header'
-import { RouteAnimation } from 'route-animation'
+
 import { FooterNav } from './components/FooterNav/FooterNav'
 import { CONST_ROUTES_PRIVATE } from './CONTS/CONST_ROUTES'
+import { RouteAnimation } from 'route-animation';
 
 
 
@@ -33,5 +34,4 @@ export function App() {
     </>
   )
 }
-
 
