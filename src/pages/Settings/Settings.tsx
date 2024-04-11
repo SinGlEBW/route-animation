@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 
 import { Box, Button, Typography } from '@mui/material';
 import { NavLink, RouteObject, useLocation, useRoutes } from 'react-router-dom';
-import { RouteAnimation } from '../../lib';
+import { RouteAnimation } from 'route-animation';
 
 
 

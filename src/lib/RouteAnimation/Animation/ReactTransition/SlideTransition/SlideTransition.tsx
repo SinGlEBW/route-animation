@@ -4,6 +4,7 @@ import { Navigate, NavigateProps, Route, RouteProps } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 import cn from 'classnames';
+import { CommonTransitionProps } from '../TransitionProps'
 
 type Direction_OR = 'forward' | 'back' | 'undirected';
 interface StyledProps {
@@ -38,7 +39,58 @@ const getTransformStyles = (transformFn: string, max: string) => ({
     transform: `${transformFn}(-${max})`
   }
 });
+const getFadeStyles = () => {
+  const  time = '300ms';
+  return ({
 
+  '& > .back-enter, & > .forward-enter': {
+    opacity: 0,
+    transform: 'scale(1.1)'
+  },
+  '& > .back-enter-active, & > .forward-enter-active': {
+    opacity: 1,
+    transform: 'scale(1)',
+    transition: `opacity ${time}, transform ${time}`
+  },
+  '& > .back-exit, & > .forward-exit': {
+    opacity: 1,
+    transform: 'scale(1)',
+    transition: `opacity ${time}, transform ${time}`
+  },
+  '& > .back-exit-active, & > .forward-exit-active': {
+    opacity: 0,
+    transform: 'scale(0.9)',
+    transition: `opacity ${time}, transform ${time}`
+  },
+// .fade {
+//   position: absolute;
+//   left: 15px;
+//   right: 15px;
+// }
+
+// .fade-enter {
+//   opacity: 0;
+//   transform: scale(1.1);
+// }
+
+// .fade-enter-active {
+//   opacity: 1;
+//   transform: scale(1);
+//   transition: opacity $time, transform $time;
+// }
+
+// .fade-exit {
+//   opacity: 1;
+//   transform: scale(1);
+// }
+
+// .fade-exit-active {
+//   opacity: 0;
+//   transform: scale(0.9);
+//   transition: opacity $time, transform $time;
+// }
+  })
+}
 const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, timing, direction }) => {
   return {
     display: 'grid',
@@ -64,21 +116,25 @@ const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, 
         backfaceVisibility: 'hidden'
       },
       ...getTransformStyles('rotateY', '180deg')
+    },
+    '&.fade': {
+      overflow: 'hidden',
+      ...getFadeStyles()
     }
   }
 })
 
-type RouteElement = ReactElement<RouteProps, typeof Route>;
-type ChildElement = RouteElement | ReactElement<NavigateProps, typeof Navigate>;
-export interface SlideTransitionProps extends StyledProps {
-  keyAnimation: string;
-  children: ChildElement | (ChildElement | undefined | null)[];
+
+
+
+export type SlideTransitionProps =  {
   destroy?: boolean;
-  animation?: 'slide' | 'vertical-slide' | 'rotate';
-}
+  animation?: 'slide' | 'vertical-slide' | 'rotate';// | 'fade';
+} & CommonTransitionProps & StyledProps;
+
 
 const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
-  const { animation = 'slide', duration = 200, timing = 'ease', destroy = true, children, keyAnimation, direction } = props;
+  const { animation = 'slide', duration = 300, timing = 'ease', destroy = true, children, keyAnimation, direction, ...p } = props;
 
   const childFactory = useCallback(
     (child: ReactElement<CSSTransitionProps>) =>
@@ -87,7 +143,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
   );
 
   const cssTransitionProps = useMemo(
-    () => (destroy ? { timeout: duration } : { addEndListener() { } }),
+    () => (destroy ? { timeout: duration } : { addEndListener() { console.dir('Добавлены Events'); } }),
     [destroy, duration]
   );
    
@@ -99,11 +155,13 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
         duration={duration}
         timing={timing}
         direction={direction}
+        
       >
         <CSSTransition
           key={keyAnimation}
 
           {...cssTransitionProps}
+          {...p}
         >
           {
             () => {

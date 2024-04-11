@@ -1,18 +1,30 @@
 import type { FC } from 'react';
 import React, { useRef } from 'react';
 import { useGetKeyMotion, ItemsRoutes } from './useGetKeyMotion/useGetKeyMotion';
-import { ReactTransition, ReactTransitionProps } from './Animation/ReactTransition/ReactTransition';
+import { ReactTransition, FTProps, STProps,  } from './Animation/ReactTransition/ReactTransition';
 
-interface RouteAnimationMemoProps extends Omit<ReactTransitionProps, 'direction' | 'keyAnimation'>{
+interface RouteAnimationMemoProps {
   itemsRoutes: ItemsRoutes
 }
 
-const RouteAnimationMemo:FC<RouteAnimationMemoProps> = (props) => {
+type S = Omit<STProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps & {};
+type F = Omit<FTProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps & {
+  // animation?:never;
+  // destroy?:never;
+  // duration?:never;
+  // timing?:never;
+};
+// type R<T> = (T extends 'fade'  ? F : S);
+
+
+
+
+function RouteAnimationMemo(props:S | F) {
   const { itemsRoutes, children, ...p } = props;
   const { handleDataRoute } = useGetKeyMotion(itemsRoutes);
 
   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
-  const direction = useRef<ReactTransitionProps['direction']>('forward');//undirected
+  const direction = useRef<STProps['direction']>('forward');//undirected
   // debugger
   if (handleDataRoute && prevRouteRef.current?.path && prevRouteRef.current.path !== handleDataRoute.path) {
     const indexDiff = handleDataRoute.index - prevRouteRef.current.index;
@@ -27,10 +39,10 @@ const RouteAnimationMemo:FC<RouteAnimationMemoProps> = (props) => {
 
   prevRouteRef.current = handleDataRoute;
   props
-
+//
   return (
     <>
-      <ReactTransition mode='slide' direction={direction.current} keyAnimation={handleDataRoute.path as string} {...p}>
+      <ReactTransition  keyAnimation={handleDataRoute.path as string} {...p} direction={direction.current}      >
         {children}
       </ReactTransition>
     </>

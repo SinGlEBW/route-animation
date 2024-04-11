@@ -7,7 +7,9 @@ import { Header } from './components/Header/Header'
 
 import { FooterNav } from './components/FooterNav/FooterNav'
 import { CONST_ROUTES_PRIVATE } from './CONTS/CONST_ROUTES'
-import { RouteAnimation } from 'route-animation';
+import { RouteAnimation } from './lib';
+// import {  } from 'route-animation';
+
 
 
 
@@ -25,7 +27,7 @@ export function App() {
       <Header />
       <div className={'content_app'} style={{ position: 'relative' }} >
         <Container sx={{ py: 1, position: 'relative' }}>
-          <RouteAnimation itemsRoutes={itemsRoutes}>
+          <RouteAnimation itemsRoutes={itemsRoutes}   >
             <>{routes}</>
           </RouteAnimation>
         </Container>

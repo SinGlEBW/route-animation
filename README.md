@@ -87,12 +87,26 @@ const SettingsMemo = () => {
 
 ## API
 
-| Prop        | Type       | Required | Default   | Description                                                                                                                                                                                                                       |
-| ----------- | ---------- | -------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `animation` | `string`   |          | `'slide'` | Animation effect type, `'slide'`, `'vertical-slide'`, or `'rotate'`                                                                                                                                                               |
-| `duration`  | `number`   |          | `200`     | `transition-duration` in `ms`                                                                                                                                                                                                     |
-| `timing`    | `string`   |          | `'ease'`  | `transition-timing-function`, one of `'ease'` `'ease-in'` `'ease-out'` `'ease-in-out'` `'linear'`                                                                                                                                 |
-| `destroy`   | `boolean`  |          | `true`    | If `false`, prev page will still exits in dom, just invisible                                                                                                                                                                     |
+
+### Common props
+
+| Prop       | Type                             | 
+|------------|----------------------------------|
+|`onExit`    |`CSSTransitionProps['onExit']`    |
+|`onExited`  |`CSSTransitionProps['onExited']`  |
+|`onExiting` |`CSSTransitionProps['onExiting']` |
+|`onEnter`   |`CSSTransitionProps['onEnter']`   |
+|`onEntered` |`CSSTransitionProps['onEntered']` |
+|`onEntering`|`CSSTransitionProps['onEntering']`|   
+
+### RouteAnimation mode = 'slide' (default 'fade')
+
+| Prop      | Type    | Default | Description                                                                                      |
+|-----------|---------|---------|--------------------------------------------------------------------------------------------------|
+|`animation`|`string` |`'slide'`| Animation effect type, `'slide'`, `'vertical-slide'`, or `'rotate'`                              |
+|`duration` |`number` |`200`    | `transition-duration` `ms`                                                                       |
+|`timing`   |`string` |`'ease'` | `transition-timing-function`, one of `'ease'` `'ease-in'` `'ease-out'` `'ease-in-out'` `'linear'`|
+|`destroy`  |`boolean`|`true`   | If `false`, prev page will still exits in dom, just invisible                                    |
 
 
 ## EXAMPLE

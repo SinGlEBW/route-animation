@@ -1,8 +1,14 @@
-import React from "react"
+import React, { FC } from "react";
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
+import { CommonTransitionProps } from '../TransitionProps';
 import fadeStyle from './fade.module.scss';
 
-const FadeTransitionMemo = ({ keyAnimation, children }) => {
+
+export type FadeTransitionProps = CommonTransitionProps;
+/*
+  TODO: На будущее добавить duration и timeout
+*/
+const FadeTransitionMemo:FC<FadeTransitionProps> = ({ keyAnimation, children, ...props }) => {
   const mode = 'fade';
   return (
     <SwitchTransition >
@@ -17,10 +23,10 @@ const FadeTransitionMemo = ({ keyAnimation, children }) => {
           enterActive: fadeStyle[`${mode}-enter-active`],
           enterDone: fadeStyle[`${mode}-enter-done`],
         }}
+        {...props}
         unmountOnExit
       >
-        {(state) => {
-          console.dir(state);
+        {() => {
           return (
             <div className={fadeStyle[mode]}>
               {children}

@@ -1,20 +1,21 @@
 import React, { FC } from "react"
-import { FadeTransition } from './FadeTransition/FadeTransition';
+import { FadeTransition, FadeTransitionProps } from './FadeTransition/FadeTransition';
 import { SlideTransition, SlideTransitionProps } from './SlideTransition/SlideTransition';
+import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
 
-export interface ReactTransitionProps extends SlideTransitionProps {
-  mode?: 'slide' | 'fade';
-  keyAnimation: string;
-}
+export type FTProps = FadeTransitionProps & {mode?: 'fade' | never; direction: SlideTransitionProps['direction'] };
+export type STProps = SlideTransitionProps & {mode?: 'slide' | never  };
 
-const ReactTransitionMemo: FC<ReactTransitionProps> = ({ mode = 'fade', direction, keyAnimation, children, ...props }) => {
-  //TODO: Сделать динамическую передачу пропсов
+let f: STProps
+
+function ReactTransitionMemo({ mode = 'fade',  keyAnimation, children, ...props }:  STProps | FTProps) {
+
   return (
     mode === 'fade'
-    ? <FadeTransition keyAnimation={keyAnimation} children={children}/>
-    : <SlideTransition keyAnimation={keyAnimation} direction={direction}  children={children} {...props}/>  
+    ? <FadeTransition keyAnimation={keyAnimation} children={children} {...props} />
+    : <SlideTransition keyAnimation={keyAnimation} children={children} {...props} />  
   )
-};
+}
 
 export const ReactTransition = React.memo(ReactTransitionMemo);
