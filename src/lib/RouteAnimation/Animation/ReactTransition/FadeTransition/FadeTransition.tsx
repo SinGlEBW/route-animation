@@ -2,13 +2,14 @@ import React, { FC } from "react";
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { CommonTransitionProps } from '../TransitionProps';
 import fadeStyle from './fade.module.scss';
-
+import { Box } from '@mui/material';
+import cn from 'classnames';
 
 export type FadeTransitionProps = CommonTransitionProps;
 /*
   TODO: На будущее добавить duration и timeout
 */
-const FadeTransitionMemo:FC<FadeTransitionProps> = ({ keyAnimation, children, ...props }) => {
+const FadeTransitionMemo:FC<FadeTransitionProps> = ({ keyAnimation, children, classNameItem, sxItem, ...props }) => {
   const mode = 'fade';
   return (
     <SwitchTransition >
@@ -28,9 +29,9 @@ const FadeTransitionMemo:FC<FadeTransitionProps> = ({ keyAnimation, children, ..
       >
         {() => {
           return (
-            <div className={fadeStyle[mode]}>
+            <Box className={cn('item',fadeStyle[mode], classNameItem)} sx={sxItem}>
               {children}
-            </div>
+            </Box>
           )
         }}
       </CSSTransition>

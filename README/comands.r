@@ -1,6 +1,7 @@
 npm -g list --depth 0
 npm link route-animation
 
+Можно перейти в dist папку и набрать npm link <имя библиотеки указанной в package.josn>
 npm unlink route-animation
 npm -g rm route-animation удалить из node_modules 
 

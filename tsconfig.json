@@ -13,8 +13,6 @@
     // "outDir": "dist",
     // "typeRoots": ["./dist/route-animation.d.ts"],
     "moduleResolution": "bundler",
-    
-
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "noImplicitAny": false,

@@ -1,5 +1,5 @@
 import React, { FC, ReactElement, cloneElement, useCallback, useMemo } from "react"
-import { styled } from '@mui/material';
+import { Box, styled, type SxProps } from '@mui/material';
 import { Navigate, NavigateProps, Route, RouteProps } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
@@ -95,6 +95,7 @@ const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, 
   return {
     display: 'grid',
     '& > .item': {
+      overflow: 'hidden',
       gridArea: '1 / 1 / 2 / 2',
       '&:not(:only-child)': {
         [`&.${direction}-enter-active, &.${direction}-exit-active`]: {
@@ -126,7 +127,6 @@ const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, 
 
 
 
-
 export type SlideTransitionProps =  {
   destroy?: boolean;
   animation?: 'slide' | 'vertical-slide' | 'rotate';// | 'fade';
@@ -134,7 +134,7 @@ export type SlideTransitionProps =  {
 
 
 const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
-  const { animation = 'slide', duration = 300, timing = 'ease', destroy = true, children, keyAnimation, direction, ...p } = props;
+  const { animation = 'slide', duration = 300, timing = 'ease', destroy = true, children, keyAnimation, direction, sx, classNameItem, sxItem,  ...p } = props;
 
   const childFactory = useCallback(
     (child: ReactElement<CSSTransitionProps>) =>
@@ -147,6 +147,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
     [destroy, duration]
   );
    
+
   return (
     <>
       <CustomTransitionGroup
@@ -155,20 +156,19 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
         duration={duration}
         timing={timing}
         direction={direction}
-        
+        sx={sx}
       >
         <CSSTransition
           key={keyAnimation}
-
           {...cssTransitionProps}
           {...p}
         >
           {
             () => {
               return (
-                <div className={cn('item')}>
+                <Box className={cn('item', classNameItem)} sx={sxItem}>
                   {children}
-                </div>
+                </Box>
               )
             }
           }

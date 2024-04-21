@@ -38,8 +38,7 @@ function RouteAnimationMemo(props:S | F) {
   }
 
   prevRouteRef.current = handleDataRoute;
-  props
-//
+  
   return (
     <>
       <ReactTransition  keyAnimation={handleDataRoute.path as string} {...p} direction={direction.current}      >
