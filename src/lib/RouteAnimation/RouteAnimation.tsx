@@ -25,7 +25,7 @@ function RouteAnimationMemo(props:S | F) {
 
   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
   const direction = useRef<STProps['direction']>('forward');//undirected
-  // debugger
+
   if (handleDataRoute && prevRouteRef.current?.path && prevRouteRef.current.path !== handleDataRoute.path) {
     const indexDiff = handleDataRoute.index - prevRouteRef.current.index;
     if (indexDiff > 0) {
@@ -41,7 +41,7 @@ function RouteAnimationMemo(props:S | F) {
   
   return (
     <>
-      <ReactTransition  keyAnimation={handleDataRoute.path as string} {...p} direction={direction.current}      >
+      <ReactTransition  keyAnimation={handleDataRoute.path as string} {...p} direction={direction.current}   >
         {children}
       </ReactTransition>
     </>

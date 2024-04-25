@@ -22,12 +22,13 @@ const itemsRoutes: RouteObject[] = [
 export function App() {
   const location = useLocation();
   const routes = useRoutes(itemsRoutes, location);
+
   return (
     <>
       <Header />
       <div className={'content_app'} style={{ position: 'relative' }} >
         <Container sx={{ py: 1, position: 'relative' }}>
-          <RouteAnimation itemsRoutes={itemsRoutes}   >
+          <RouteAnimation itemsRoutes={itemsRoutes}  mode='slide' animation='slide-fade' destroy={false} >
             <>{routes}</>
           </RouteAnimation>
         </Container>

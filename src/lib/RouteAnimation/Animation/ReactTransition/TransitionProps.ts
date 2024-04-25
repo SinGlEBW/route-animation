@@ -20,4 +20,6 @@ export interface CommonTransitionProps extends EventsTransitionProps{
   sx?:SxProps;
   sxItem?:SxProps;
   classNameItem?:string;
+  duration?: number;
+  easing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 }

@@ -7,36 +7,46 @@ import cn from 'classnames';
 import { CommonTransitionProps } from '../TransitionProps'
 
 type Direction_OR = 'forward' | 'back' | 'undirected';
+
 interface StyledProps {
   direction: Direction_OR;
-  timing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
-  duration?: number;
+  isOpacity?:boolean
 }
 
-const getTransformStyles = (transformFn: string, max: string) => ({
+
+const getTransformStyles = (transformFn: string, max: string, isOpacity: boolean = false) => ({
   '& > .back-enter': {
     transform: `${transformFn}(-${max})`,
+    ...(isOpacity && {opacity: 0})
   },
   '& > .back-enter-active': {
-    transform: `${transformFn}(0)`
+    transform: `${transformFn}(0)`,
+    ...(isOpacity && {opacity: 1})
   },
   '& > .back-exit': {
-    transform: `${transformFn}(0)`
+    transform: `${transformFn}(0)`,
+    ...(isOpacity && {opacity: 1})
   },
   '& > .back-exit-active': {
-    transform: `${transformFn}(${max})`
+    transform: `${transformFn}(${max})`,
+    ...(isOpacity && {opacity: 0})
   },
+
   '& > .forward-enter': {
-    transform: `${transformFn}(${max})`
+    transform: `${transformFn}(${max})`,
+    ...(isOpacity && {opacity: 0})
   },
   '& > .forward-enter-active': {
-    transform: `${transformFn}(0)`
+    transform: `${transformFn}(0)`,
+    ...(isOpacity && {opacity: 1})
   },
   '& > .forward-exit': {
-    transform: `${transformFn}(0)`
+    transform: `${transformFn}(0)`,
+    ...(isOpacity && {opacity: 1})
   },
   '& > .forward-exit-active': {
-    transform: `${transformFn}(-${max})`
+    transform: `${transformFn}(-${max})`,
+    ...(isOpacity && {opacity: 0})
   }
 });
 const getFadeStyles = () => {
@@ -91,7 +101,8 @@ const getFadeStyles = () => {
 // }
   })
 }
-const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, timing, direction }) => {
+const CustomTransitionGroup = styled(TransitionGroup)<StyledProps & Pick<CommonTransitionProps, 'duration' | 'easing'>>(({ duration, easing, direction, isOpacity }) => {
+  
   return {
     display: 'grid',
     '& > .item': {
@@ -99,13 +110,23 @@ const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, 
       gridArea: '1 / 1 / 2 / 2',
       '&:not(:only-child)': {
         [`&.${direction}-enter-active, &.${direction}-exit-active`]: {
-          transition: `transform ${duration}ms ${timing}`
+          
+          // transition: `${isOpacity ? 'transform, opacity' : 'transform'} ${duration}ms ${easing}`,
+          transitionProperty: isOpacity ? 'transform, opacity' : 'transform',
+          transitionDuration: `${duration}ms`,
+          transitionTimingFunction: easing
+
+
         }
       }
     },
     '&.slide': {
       overflow: 'hidden',
       ...getTransformStyles('translateX', '100%')
+    },
+    '&.slide-fade': {
+      overflow: 'hidden',
+      ...getTransformStyles('translateX', '100%', true)
     },
     '&.vertical-slide': {
       overflow: 'hidden',
@@ -129,12 +150,12 @@ const CustomTransitionGroup = styled(TransitionGroup)<StyledProps>(({ duration, 
 
 export type SlideTransitionProps =  {
   destroy?: boolean;
-  animation?: 'slide' | 'vertical-slide' | 'rotate';// | 'fade';
+  animation?: 'slide' | 'slide-fade' | 'vertical-slide' | 'rotate';// | 'fade';
 } & CommonTransitionProps & StyledProps;
 
 
 const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
-  const { animation = 'slide', duration = 300, timing = 'ease', destroy = true, children, keyAnimation, direction, sx, classNameItem, sxItem,  ...p } = props;
+  const { animation = 'slide', duration = 300, easing = 'ease', destroy = true, children, keyAnimation, direction, sx, classNameItem, sxItem,  ...p } = props;
 
   const childFactory = useCallback(
     (child: ReactElement<CSSTransitionProps>) =>
@@ -147,14 +168,15 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
     [destroy, duration]
   );
    
-
+  const isOpacity = animation === 'slide-fade';
   return (
     <>
       <CustomTransitionGroup
         className={`slide-routes ${animation}`}
         childFactory={childFactory}
         duration={duration}
-        timing={timing}
+        isOpacity={isOpacity}
+        easing={easing}
         direction={direction}
         sx={sx}
       >
