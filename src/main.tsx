@@ -21,13 +21,12 @@ export const themeApp = createTheme({
 
 const Router = (window as any).cordova ? HashRouter : BrowserRouter;
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+
     <CssBaseline>
       <ThemeProvider theme={themeApp}>
         <Router>
           <App />
         </Router>
       </ThemeProvider>
-    </CssBaseline>
-  </React.StrictMode>,
+    </CssBaseline>,
 )

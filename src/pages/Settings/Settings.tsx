@@ -2,7 +2,9 @@ import React, { useEffect } from "react"
 
 import { Box, Button, Typography } from '@mui/material';
 import { NavLink, RouteObject, useLocation, useRoutes } from 'react-router-dom';
-import { RouteAnimation } from 'route-animation';
+import { RouteAnimation } from '../../lib';
+// import { RouteAnimation } from 'route-animation';
+
 
 
 
@@ -50,7 +52,7 @@ export const Slide2 = () => {
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit.
       </p>
-      <RouteAnimation animation='vertical-slide' itemsRoutes={itemsRoutesForSlide2}>
+      <RouteAnimation mode='slide' animation='vertical-slide'   itemsRoutes={itemsRoutesForSlide2}>
         <>{routes}</>
       </RouteAnimation>
     </Box>
@@ -87,12 +89,12 @@ const SettingsMemo = () => {
   const location = useLocation();
   const routes = useRoutes(itemsRoutes, location);
 
-  useEffect(() => {
-    console.dir('Render Settings');
-    return () => {
-      console.dir('Покинули Render Settings');
-    }
-  }, [])
+  // useEffect(() => {
+  //   console.dir('Render Settings');
+  //   return () => {
+  //     console.dir('Покинули Render Settings');
+  //   }
+  // }, [])
 
   return (
     <div className='settings'>
@@ -102,7 +104,7 @@ const SettingsMemo = () => {
         <Button component={NavLink} to={'/settings/1'} variant={'outlined'}>Начать</Button>
       </Box>
       <Box sx={{ mt: 2 }}>
-        <RouteAnimation itemsRoutes={itemsRoutes}>
+        <RouteAnimation itemsRoutes={itemsRoutes} mode='slide' >
           <>{routes}</>
         </RouteAnimation>
       </Box>

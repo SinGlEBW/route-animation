@@ -6,7 +6,9 @@ import fadeStyle from './fade.module.scss';
 import { Box, styled } from '@mui/material';
 import cn from 'classnames';
 
-export type FadeTransitionProps = CommonTransitionProps;
+export type FadeTransitionProps = CommonTransitionProps & {
+  // extendsRoutes: never
+};
 /*
   TODO: На будущее добавить duration и timeout
 */

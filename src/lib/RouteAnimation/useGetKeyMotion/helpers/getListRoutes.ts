@@ -19,10 +19,6 @@ export const getListRoutes = (routes:ItemsRoutes) => {
       const { id, path, children, handle } = arr[i];
       const p = path ? path : listAllRoutes[listAllRoutes.length - 1].path;
 
-      // if(p?.endsWith('/*')){
-      //   p = p.replace('/*', '');
-      // }
-
       const isChildren = !!(children && children.length);
       
       relationToPath = p as string;

@@ -101,12 +101,13 @@ const SettingsMemo = () => {
 
 ### RouteAnimation mode = 'slide' (default 'fade')
 
-| Prop      | Type    | Default | Description                                                                                      |
-|-----------|---------|---------|--------------------------------------------------------------------------------------------------|
-|`animation`|`string` |`'slide'`| Animation effect type, `'slide'`, `'slide-fade'`, `'vertical-slide'`, or `'rotate'`                              |
-|`duration` |`number` |`200`    | `transition-duration` `ms`                                                                       |
-|`timing`   |`string` |`'ease'` | `transition-timing-function`, one of `'ease'` `'ease-in'` `'ease-out'` `'ease-in-out'` `'linear'`|
-|`destroy`  |`boolean`|`true`   | If `false`, prev page will still exits in dom, just invisible                                    |
+| Prop          | Type    | Default | Description                                                                                      |
+|---------------|---------|---------|--------------------------------------------------------------------------------------------------|
+|`animation`    |`string` |`'slide'`| Animation effect type, `'slide'`, `'vertical-slide'`, or `'rotate'`                              |
+|`isFadeSlide`  |`boolean`|`'false'`| Change visual animation `'slide'`, `'vertical-slide'`                                            |
+|`duration`     |`number` |`200`    | `transition-duration` `ms`                                                                       |
+|`timing`       |`string` |`'ease'` | `transition-timing-function`, one of `'ease'` `'ease-in'` `'ease-out'` `'ease-in-out'` `'linear'`|
+|`typeAnimation`|`string` |`destroy`|  `destroy` | `no-destroy`                                                                        |
 
 
 ## EXAMPLE

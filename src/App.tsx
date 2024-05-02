@@ -28,7 +28,7 @@ export function App() {
       <Header />
       <div className={'content_app'} style={{ position: 'relative' }} >
         <Container sx={{ py: 1, position: 'relative' }}>
-          <RouteAnimation itemsRoutes={itemsRoutes}  mode='slide' animation='slide-fade' destroy={false} >
+          <RouteAnimation itemsRoutes={itemsRoutes}  mode='slide' animation='slide' typeAnimation='no-destroy'  isFadeSlide={true}  >
             <>{routes}</>
           </RouteAnimation>
         </Container>

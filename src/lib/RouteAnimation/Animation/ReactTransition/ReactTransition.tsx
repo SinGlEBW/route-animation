@@ -7,14 +7,14 @@ import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 export type FTProps = FadeTransitionProps & {mode?: 'fade' | never; direction: SlideTransitionProps['direction'] };
 export type STProps = SlideTransitionProps & {mode?: 'slide' | never  };
 
-let f: STProps
 
-function ReactTransitionMemo({ mode = 'fade',  keyAnimation, children, ...props }:  STProps | FTProps) {
+
+function ReactTransitionMemo({ mode = 'fade', ...props }:  STProps | FTProps) {
 
   return (
     mode === 'fade'
-    ? <FadeTransition keyAnimation={keyAnimation} children={children} {...props} />
-    : <SlideTransition keyAnimation={keyAnimation} children={children} {...props} />  
+    ? <FadeTransition {...props as FTProps} />
+    : <SlideTransition {...props as STProps} />  
   )
 }
 

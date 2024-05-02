@@ -1,30 +1,32 @@
 import type { FC } from 'react';
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useGetKeyMotion, ItemsRoutes } from './useGetKeyMotion/useGetKeyMotion';
 import { ReactTransition, FTProps, STProps,  } from './Animation/ReactTransition/ReactTransition';
+import { UNSAFE_RouteContext } from 'react-router-dom';
 
 interface RouteAnimationMemoProps {
   itemsRoutes: ItemsRoutes
 }
 
-type S = Omit<STProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps & {};
-type F = Omit<FTProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps & {
-  // animation?:never;
-  // destroy?:never;
-  // duration?:never;
-  // timing?:never;
-};
-// type R<T> = (T extends 'fade'  ? F : S);
+type S = Omit<STProps, 'direction' | 'keyAnimation' | 'extendsRoutes' | 'handleDataRoute'> & RouteAnimationMemoProps & {};
+type F = Omit<FTProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps & {};
+
+
 
 
 
 
 function RouteAnimationMemo(props:S | F) {
   const { itemsRoutes, children, ...p } = props;
-  const { handleDataRoute } = useGetKeyMotion(itemsRoutes);
+  
+  const { handleDataRoute, extendsRoutes } = useGetKeyMotion(itemsRoutes);
 
   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
   const direction = useRef<STProps['direction']>('forward');//undirected
+
+/*--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------*/
 
   if (handleDataRoute && prevRouteRef.current?.path && prevRouteRef.current.path !== handleDataRoute.path) {
     const indexDiff = handleDataRoute.index - prevRouteRef.current.index;
@@ -38,10 +40,14 @@ function RouteAnimationMemo(props:S | F) {
   }
 
   prevRouteRef.current = handleDataRoute;
-  
+
   return (
     <>
-      <ReactTransition  keyAnimation={handleDataRoute.path as string} {...p} direction={direction.current}   >
+      <ReactTransition 
+        keyAnimation={handleDataRoute.path as string} 
+        direction={direction.current}
+        {...p} 
+        {...(p.mode === 'slide' && {extendsRoutes, handleDataRoute} as any)} >
         {children}
       </ReactTransition>
     </>
