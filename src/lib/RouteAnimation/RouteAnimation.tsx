@@ -73,7 +73,7 @@ export const RouteAnimation = React.memo(RouteAnimationMemo);
   });
 
   useEffect(() => {
-    console.dir(14);
+
   }, [location])
 
   const setDirection = (prevNumberPage, handleDataRoute) => {

@@ -14,7 +14,7 @@ import { RouteAnimation } from './lib';
 
 
 const itemsRoutes: RouteObject[] = [
-  { path: CONST_ROUTES_PRIVATE.PAGE_HOME, element: <Home /> },
+  { path: CONST_ROUTES_PRIVATE.PAGE_HOME + '/*', element: <Home /> },
   { path: CONST_ROUTES_PRIVATE.PAGE_POSTS, element: <Posts /> },
   { path: CONST_ROUTES_PRIVATE.PAGE_SETTINGS + '/*', element: <Settings /> }
 ]

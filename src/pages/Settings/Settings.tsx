@@ -89,24 +89,13 @@ const SettingsMemo = () => {
   const location = useLocation();
   const routes = useRoutes(itemsRoutes, location);
 
-  // useEffect(() => {
-  //   console.dir('Render Settings');
-  //   return () => {
-  //     console.dir('Покинули Render Settings');
-  //   }
-  // }, [])
+
 
   return (
     <div className='settings'>
-      <Typography>Settings</Typography>
-   
+      <h1>Settings</h1>
       <Box>
         <Button component={NavLink} to={'/settings/1'} variant={'outlined'}>Начать</Button>
-      </Box>
-      <Box sx={{ mt: 2 }}>
-        <RouteAnimation itemsRoutes={itemsRoutes} mode='slide' >
-          <>{routes}</>
-        </RouteAnimation>
       </Box>
     </div>
   )

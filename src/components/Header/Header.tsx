@@ -34,8 +34,8 @@ const HeaderMemo = () => {
     setAnchorElUser(null);
   };
 
-  const handleButtonMenu = (e) => {
-    console.dir(e);
+  const handleButtonMenu = () => {
+  
     handleCloseUserMenu();
     resetStore();
   };

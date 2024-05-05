@@ -14,7 +14,7 @@ export interface CustomTransitionProps {
 
 export const CustomTransitionGroup = styled(TransitionGroup, {
   shouldForwardProp: (prop) => {
-    return !['isFadeSlide', 'easing', 'duration', 'direction'].includes(prop as string)
+    return !['isFadeSlide', 'easing', 'duration', 'direction', 'sx'].includes(prop as string)
   }
 })<CustomTransitionProps & Pick<CommonTransitionProps, 'duration' | 'easing'>>(({ duration, easing, direction, isFadeSlide = false }) => {
   return {
