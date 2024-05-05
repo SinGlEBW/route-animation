@@ -107,7 +107,7 @@ const SettingsMemo = () => {
 |`isFadeSlide`  |`boolean`|`'false'`| Change visual animation `'slide'`, `'vertical-slide'`                                            |
 |`duration`     |`number` |`200`    | `transition-duration` `ms`                                                                       |
 |`timing`       |`string` |`'ease'` | `transition-timing-function`, one of `'ease'` `'ease-in'` `'ease-out'` `'ease-in-out'` `'linear'`|
-|`typeAnimation`|`string` |`destroy`|  `destroy` | `no-destroy` | `total-forward`                                                      |
+|`typeAnimation`|`string` |`destroy`|  `destroy`, `no-destroy`, `total-forward`                                                        |
 
 
 
