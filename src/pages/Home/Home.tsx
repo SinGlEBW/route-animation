@@ -25,10 +25,11 @@ const RenderCard = (params) => {
 
 const itemsHomeRoutes: RouteObject[] = [
   {
+    index: true,
     path: '/',
     element: (
       <Box>
-        <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME + '/1'}>Вперёд</Button>
+        <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME + '1'}>Вперёд</Button>
         <Box sx={{mt: 2, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
           <RenderCard />
           <RenderCard />
@@ -45,7 +46,7 @@ const itemsHomeRoutes: RouteObject[] = [
     element: (
       <Box>
         <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME}>Назад</Button>
-        <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME + '/2'}>Вперёд</Button>
+        <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME + '2'}>Вперёд</Button>
         <p>
           Страница расширенной 1
         </p>
@@ -59,7 +60,7 @@ const itemsHomeRoutes: RouteObject[] = [
     path: '/2',
     element: (
       <Box>
-        <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME + '/1'}>Назад</Button>
+        <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME + '1'}>Назад</Button>
         <p>
           Страница расширенной 2
         </p>
@@ -75,6 +76,7 @@ const itemsHomeRoutes: RouteObject[] = [
 const HomeMemo = () => {
   const location = useLocation();
   const routes = useRoutes(itemsHomeRoutes, location);
+
   return (
     <div className='home'>
       <h1>Home</h1>

@@ -3,7 +3,7 @@ import { v4 as uuid4 } from 'uuid';
 
 type Handle =  {handle?: {parentRelation?: string}};
 export interface listAllRoutesI extends Partial<Record<'id' | 'parentRelation' | 'relationToPath', string> & Handle & {path: string}>{
-  index:number
+  inx:number
 }
 export type ItemsRoutes = (RouteObject & Handle)[]
 export const getListRoutes = (routes:ItemsRoutes) => {
@@ -11,16 +11,19 @@ export const getListRoutes = (routes:ItemsRoutes) => {
   const listAllRoutes: listAllRoutesI[] = [];
   let parentRelation:string = '/';
   let relationToPath:string = '';
-  let index = 0;
+  let inx = 0;
+  
   
   const recursiveFindChildren = (arr:ItemsRoutes) => {
-
+    
     for(let i = 0; i < arr.length; i++){
-      const { id, path, children, handle } = arr[i];
-      const p = path ? path : listAllRoutes[listAllRoutes.length - 1].path;
+      const { id, path, children, handle, index } = arr[i];
+    
+      const p = index ? handle.parentRelation ? handle.parentRelation : '/' : path ? path : listAllRoutes[listAllRoutes.length - 1].path;
+
 
       const isChildren = !!(children && children.length);
-      
+   
       relationToPath = p as string;
       if(!isChildren){
         if(listAllRoutes.length){
@@ -30,16 +33,16 @@ export const getListRoutes = (routes:ItemsRoutes) => {
           }
         }
       }
-    
-      listAllRoutes.push({ 
+      const payloadPush = { 
         id: id ? id : uuid4(),
-        index, 
-        path: handle && handle?.parentRelation ? handle?.parentRelation + p : p, 
+        inx, 
+        path: handle && handle?.parentRelation ? getConnectPath(handle?.parentRelation + p ) : p, 
         handle, 
         parentRelation: handle && handle?.parentRelation ? handle?.parentRelation : parentRelation, 
         relationToPath 
-      });
-      index++;
+      }
+      listAllRoutes.push(payloadPush);
+      inx++;
       if(isChildren){
         parentRelation = p as string;
         recursiveFindChildren(children);
@@ -49,4 +52,10 @@ export const getListRoutes = (routes:ItemsRoutes) => {
   }
   recursiveFindChildren(routes);
   return listAllRoutes;
+}
+
+const getConnectPath = (path) => {
+  const itemsPath = path.split('/');
+  const filterItemsPath = itemsPath.filter((i) => i);
+  return '/' + filterItemsPath.join('/');
 }

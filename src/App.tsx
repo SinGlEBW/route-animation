@@ -14,7 +14,7 @@ import { RouteAnimation } from './lib';
 
 
 const itemsRoutes: RouteObject[] = [
-  { path: CONST_ROUTES_PRIVATE.PAGE_HOME + '/*', element: <Home /> },
+  { path: CONST_ROUTES_PRIVATE.PAGE_HOME + '*', element: <Home /> },
   { path: CONST_ROUTES_PRIVATE.PAGE_POSTS, element: <Posts /> },
   { path: CONST_ROUTES_PRIVATE.PAGE_SETTINGS + '/*', element: <Settings /> }
 ]
@@ -28,7 +28,7 @@ export function App() {
       <Header />
       <div className={'content_app'} style={{ position: 'relative' }} >
         <Container sx={{ py: 1, position: 'relative' }}>
-          <RouteAnimation itemsRoutes={itemsRoutes}  mode='slide' animation='slide' typeAnimation='no-destroy'  isFadeSlide={true}  >
+          <RouteAnimation itemsRoutes={itemsRoutes}  mode='slide' animation='slide' typeAnimation='no-destroy' isFadeSlide={true} >
             <>{routes}</>
           </RouteAnimation>
         </Container>

@@ -18,7 +18,6 @@ type F = Omit<FTProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps &
 
 function RouteAnimationMemo(props:S | F) {
   const { itemsRoutes, children, ...p } = props;
-  
   const { handleDataRoute, extendsRoutes } = useGetKeyMotion(itemsRoutes);
 
   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
@@ -26,10 +25,8 @@ function RouteAnimationMemo(props:S | F) {
 
 /*--------------------------------------------------------------*/
 
-/*--------------------------------------------------------------*/
-
   if (handleDataRoute && prevRouteRef.current?.path && prevRouteRef.current.path !== handleDataRoute.path) {
-    const indexDiff = handleDataRoute.index - prevRouteRef.current.index;
+    const indexDiff = handleDataRoute.inx - prevRouteRef.current.inx;
     if (indexDiff > 0) {
       direction.current = 'forward';
     } else if (indexDiff < 0) {
