@@ -1,7 +1,9 @@
 import { Box } from '@mui/material';
 import cn from 'classnames';
-import React, { FC, ReactElement, cloneElement, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { CSSTransition } from 'react-transition-group';
+import React, { FC, ReactElement, cloneElement, createRef, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
+import { CSSTransition, Transition, TransitionGroup, } from 'react-transition-group';
+import { findDOMNode } from 'react-dom';
+
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 import type { listAllRoutesI } from '../../../useGetKeyMotion/helpers/getListRoutes';
 import { CommonTransitionProps } from '../TransitionProps';
@@ -18,21 +20,30 @@ export type SlideTransitionProps = {
   extendsRoutes: listAllRoutesI[],
   handleDataRoute: listAllRoutesI
   onSlideEnd?: () => void
+  // initAnim?: boolean
 } & CommonTransitionProps & CustomTransitionProps;
 
 /*
-  TODO: 
+  TODO:  Если резкр вернуться назад переступив через несолько ссылок в режиме total-forward, то удаляется не весь стек
   1. Добавить сброс висящих элементов когда перескакиваем через роут
 */
 
 const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
-  const { onEnter, onExited, animation = 'slide', duration = 300, easing = 'ease', typeAnimation = 'destroy', children, keyAnimation, direction, sx, classNameItem, isFadeSlide = false, extendsRoutes, sxItem, handleDataRoute, ...p } = props;
+  const {
+    onEnter, onExited, animation = 'slide', duration = 300, easing = 'ease', typeAnimation = 'destroy',
+    keyAnimation, direction, sx, classNameItem, isFadeSlide = false, extendsRoutes,
+    sxItem = {}, handleDataRoute, children, ...p
+  } = props;
+
   const configRef = useRef({
     prevPath: keyAnimation,
     deleteItem: null as any | null,
     touchedItems: [] as ReactElement<CSSTransitionProps>[]
   });
+
   const [showBoxBlockSlide, setStateShowBoxBlockSlide] = useState(false);
+  // const [control, setControl] = useState({});
+
 
   const onSlideStart = () => {
     setStateShowBoxBlockSlide(true)
@@ -43,7 +54,9 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
   const childFactory = useCallback(
     (child: ReactElement<CSSTransitionProps>, inx: number, touchedItems: ReactElement<CSSTransitionProps>[]) => {
-      
+      let isRender = child.props.in;
+
+      // const cloneChild = cloneElement(child, { classNames: cn('item', classNameItem, direction),});
       const isAnimationTotal = typeAnimation === 'total-forward';
       const childPath = child.props.path;
       if (isAnimationTotal) {
@@ -64,35 +77,41 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
             }
           }
         }
+
+        const isNotKeyInTheRoutes = !extendsRoutes.some(({ path }) => path === keyAnimation)
+        if (isNotKeyInTheRoutes && childPath !== keyAnimation) {
+          isRender = false
+          // const idTimeout = setTimeout(() => {
+          //   // const controlItem =  (cloneChild as any).ref.current;
+          //   clearTimeout(idTimeout);
+          // }, duration)
+        }
       }
 
 
-      return cloneElement(child, { classNames: direction });
+      return cloneElement(child, { classNames: cn('item', classNameItem, direction), });
     },
-    [direction, handleDataRoute, typeAnimation, configRef.current, keyAnimation]
+    [typeAnimation, classNameItem, direction, handleDataRoute.path, extendsRoutes, keyAnimation]
   );
 
   const cssTransitionProps = useMemo(
     () => (typeAnimation === 'destroy' ? { timeout: duration } : {
-
       addEndListener(node, done) {
-        const isBack = node.classList.contains('back-exit');
-        const isForward = node.classList.contains('forward-exit');
-     
-        if (isBack || isForward) {
-          const removeItem = () => {
-            const isAnimationTotal = typeAnimation === 'total-forward';
-            onSlideEnd();
-            if (isBack) {
-              isAnimationTotal && done();
-            }
-            // node.removeEventListener('transitionend', removeItem, false)
+
+        const isBackEnter = node.classList.contains('back-enter');
+        const isBackExit = node.classList.contains('back-exit');
+        const isForwardEnter = node.classList.contains('forward-enter');
+        const isForwardExit = node.classList.contains('forward-exit');
+
+
+        if (isBackExit) {
+          const isAnimationTotal = typeAnimation === 'total-forward';
+          if (isAnimationTotal) {
+            const idTimeout = setTimeout(() => {
+              done();
+              clearTimeout(idTimeout);
+            }, duration)
           }
-          // node.addEventListener('transitionend', removeItem, false)
-          const idTimeout = setTimeout(() => {
-            removeItem()
-            clearTimeout(idTimeout);
-          }, duration)
         }
       }
     }),
@@ -101,9 +120,9 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
 
 
-
   return (
     <>
+
       <CustomTransitionGroup
         className={`slide-routes ${animation}`}
         childFactory={childFactory as any}
@@ -112,34 +131,35 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
         easing={easing}
         direction={direction}
         sx={sx}
+        sxItem={sxItem}
+      // appear={initAnim}
       >
         <CSSTransition
           key={keyAnimation}
           path={keyAnimation}
+          // nodeRef={() => <div></div>}
+
           {...cssTransitionProps}
           {...p}
           onEnter={(node: HTMLElement, isAppearing: boolean) => {
-            onSlideStart()
+            onSlideStart();
+            const idTimeout = setTimeout(() => {
+              onSlideEnd();
+              clearTimeout(idTimeout);
+            }, duration)
             typeof onEnter === 'function' && onEnter(node, isAppearing)
           }}
+
           onExited={(node: HTMLElement) => {
             typeAnimation === 'destroy' && onSlideEnd();
 
             typeof onExited === 'function' && onExited(node)
           }}
-        >
-          {
-            (event, payload) => {
 
-              return (
-                <Box
-                  id={payload?.path as string}
-                  className={cn('item', classNameItem)} sx={sxItem}>
-                  {children}
-                </Box>
-              )
-            }
-          }
+
+          unmountOnExit
+        >
+          {children}
         </CSSTransition>
       </CustomTransitionGroup>
       {

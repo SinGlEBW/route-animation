@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import React, { useContext, useRef } from 'react';
 import { useGetKeyMotion, ItemsRoutes } from './useGetKeyMotion/useGetKeyMotion';
 import { ReactTransition, FTProps, STProps,  } from './Animation/ReactTransition/ReactTransition';
-import { UNSAFE_RouteContext } from 'react-router-dom';
+import { UNSAFE_RouteContext, useLocation } from 'react-router-dom';
 
 interface RouteAnimationMemoProps {
   itemsRoutes: ItemsRoutes
@@ -14,10 +14,9 @@ type F = Omit<FTProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps &
 
 
 
-
-
 function RouteAnimationMemo(props:S | F) {
   const { itemsRoutes, children, ...p } = props;
+
   const { handleDataRoute, extendsRoutes } = useGetKeyMotion(itemsRoutes);
 
   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);

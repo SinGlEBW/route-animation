@@ -16,11 +16,12 @@ export const getTransformStyles = (transformFn: string, max: string, isOpacity: 
     ...(isOpacity && {opacity: 0})
   },
 
-  '& > .forward-enter': {
+  [`& > .forward-enter, & > .forward-appear`]: {
     transform: `${transformFn}(${max})`,
     ...(isOpacity && {opacity: 0})
   },
-  '& > .forward-enter-active': {
+
+  [`& > .forward-enter-active, & > .forward-appear-active`]:{
     transform: `${transformFn}(0)`,
     ...(isOpacity && {opacity: 1})
   },

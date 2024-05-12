@@ -131,7 +131,6 @@ const RenderCard = (params) => {
 const itemsHomeRoutes: RouteObject[] = [
   {
     index: true,
-    path: '/',
     element: (
       <Box>
         <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_HOME + '1'}>Вперёд</Button>
@@ -232,6 +231,8 @@ export const Home = React.memo(HomeMemo);
 |`onEntered` |`CSSTransitionProps['onEntered']`     |
 |`onEntering`|`CSSTransitionProps['onEntering']`    |   
 |`onSlideEnd`|`used if no-destroy or total-forward `|   
+|`sx`        |`mui SxProps`|   
+|`sxItem`    |`mui SxProps`|   
 
 ### RouteAnimation mode = 'slide' (default 'fade')
 
