@@ -88,8 +88,9 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
         }
       }
 
-
-      return cloneElement(child, { classNames: cn('item', classNameItem, direction), });
+    
+      const isChild = (child?.props?.children as any)?.props?.children
+      return cloneElement(child, { classNames: cn('item', classNameItem, direction), ...(isChild && {children: <Box sx={sxItem}>{(child.props as any)?.children}</Box>})});
     },
     [typeAnimation, classNameItem, direction, handleDataRoute.path, extendsRoutes, keyAnimation]
   );
@@ -131,7 +132,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
         easing={easing}
         direction={direction}
         sx={sx}
-        sxItem={sxItem}
+        // sxItem={sxItem}
       // appear={initAnim}
       >
         <CSSTransition
