@@ -90,7 +90,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
     
       const isChild = (child?.props?.children as any)?.props?.children
-      return cloneElement(child, { classNames: cn('item', classNameItem, direction), ...(isChild && {children: <Box sx={sxItem}>{(child.props as any)?.children}</Box>})});
+      return cloneElement(child, { classNames: cn('item', classNameItem, direction), ...(isChild && {children: <Box sx={{overflow: 'hidden', ...sxItem}}>{(child.props as any)?.children}</Box>})});
     },
     [typeAnimation, classNameItem, direction, handleDataRoute.path, extendsRoutes, keyAnimation]
   );
