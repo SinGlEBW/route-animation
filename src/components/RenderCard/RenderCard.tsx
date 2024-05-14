@@ -1,17 +1,16 @@
 import React from "react";
 import { Box, Button, Card, CardActionArea, CardContent, Typography } from '@mui/material';
 
-export const RenderCard = () => {
+export const RenderCard = ({title}) => {
   return (
-    <Card sx={{ width: 200 }}>
+    <Card sx={{ width: 100 }}>
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            Description
           </Typography>
         </CardContent>
       </CardActionArea>

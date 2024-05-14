@@ -217,6 +217,10 @@ export const Home = React.memo(HomeMemo);
 </div>
 ```
 
+
+
+
+
 ## API
 
 
@@ -248,6 +252,6 @@ export const Home = React.memo(HomeMemo);
 
 
 
-## EXAMPLE
+## EXAMPLE. (Also check out the ExampleComponent components on the home page)
 > [`CodeSandbox Route Animation`](https://codesandbox.io/p/sandbox/route-animation-7sysj6?file=%2Fsrc%2Findex.tsx)
 

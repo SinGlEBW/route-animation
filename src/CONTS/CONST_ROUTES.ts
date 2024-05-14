@@ -1,5 +1,7 @@
 export const CONST_ROUTES_PRIVATE = {
   PAGE_HOME: '/',
   PAGE_POSTS: '/posts',
-  PAGE_SETTINGS: '/settings'
+  PAGE_SETTINGS: '/settings',
+  HOME_SLIDE: '/home-slide',
+  POPUP_SLIDE: '/popup-slide',
 }

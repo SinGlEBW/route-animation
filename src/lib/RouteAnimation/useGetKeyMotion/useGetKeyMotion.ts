@@ -36,13 +36,7 @@ const useGetKeyMotion = (routes:ItemsRoutes) => {
     ? findHandleDataRoute 
     : parentPath ? {path: parentPath, inx: -1} : state.extendsRoutes[0]// state.extendsRoutes[0] // { path: state.extendsRoutes[0].parentRelation, inx: -1 } //Добавлять из сохранённого общего стэйта 
   }
-  // console.dir(returnData);
 
-  // console.log('matches:', parentMatches);
-  // console.log('routes:', routes);
-  // console.log('state.extendsRoutes:', state.extendsRoutes);
-  // console.log('findHandleDataRoute:', findHandleDataRoute);
-  // console.log('returnData.handleDataRoute:', returnData.handleDataRoute);
   return returnData
 };
 
@@ -57,6 +51,16 @@ const findPage = (routes:listAllRoutesI[], location:Location<any>)  => routes.fi
   const p = path === '/*' ?  '/' === location.pathname : path === location.pathname
   return p
 })
+
+const deleteEndSlash = (path) => {
+  if(path === '/'){
+    return path
+  }
+  if(path.endsWith('/')){
+    return path.slice(0, -1)
+  }
+  return path
+}
 
 // const useGetKeyMotion = (routes:ItemsRoutes) => {
 //   const [state] = useState<{extendsRoutes: listAllRoutesI[]}>(() => {

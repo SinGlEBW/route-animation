@@ -9,48 +9,7 @@ import { RenderCard } from '../../components/RenderCard/RenderCard';
 import { RouteAnimation } from '../../lib';
 
 
-const TestComponent = ({parentRelation}) => {
-  const TestComponentRoutes: RouteObject[] = [
-    {
-      index: true,
-      path: '/',
-      element: (
-        <Box>
-          <Button variant={'outlined'} component={NavLink} to={parentRelation + '/11'}>Вперёд</Button>
-          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-            <RenderCard />
-            <RenderCard />
-            <RenderCard />
-          </Box>
-        </Box>
-      ),
-      handle: {
-        parentRelation
-      },
-    },
-    {
-      path: parentRelation + '/11',
-      element: (
-        <Box>
-          <Button variant={'outlined'} component={NavLink} to={CONST_ROUTES_PRIVATE.PAGE_SETTINGS + '1'}>Назад</Button>
-          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
-            йцуцйуцйу
-          </Box>
-        </Box>
-      ),
-      handle: {
-        parentRelation
-      },
-    }
-  ]
-  const location = useLocation();
-  const routes = useRoutes(TestComponentRoutes, location);
-  return (
-    <RouteAnimation itemsRoutes={TestComponentRoutes} mode='slide' typeAnimation='total-forward' >
-      <>{routes}</>
-    </RouteAnimation>
-  )
-}
+
 const itemsRoutesForSlide2: RouteObject[] = [
   {
     path: "/1",

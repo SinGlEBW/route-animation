@@ -31,7 +31,9 @@ function RouteAnimationMemo(props:S | F) {
     } else if (indexDiff < 0) {
       direction.current = 'back';
     } else if (indexDiff === 0) {
+      debugger
       direction.current = 'undirected';
+      // direction.current = 'forward';
     }
   }
 
