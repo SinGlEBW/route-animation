@@ -1,26 +1,25 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { App } from './App.tsx'
-import { BrowserRouter, HashRouter } from 'react-router-dom';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider, createTheme } from '@mui/material';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { App } from "./App.tsx";
+import { BrowserRouter, HashRouter } from "react-router-dom";
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from "@mui/material";
 
-import './assets/scss/index.scss'
+import "./assets/scss/index.scss";
 export const themeApp = createTheme({
   palette: {
-    mode: 'dark',
+    mode: "dark",
     primary: {
-      main: '#1976d2',
+      main: "#1976d2",
     },
     secondary: {
-      main: '#f50057',
+      main: "#f50057",
     },
-
   },
 });
 
 const Router = (window as any).cordova ? HashRouter : BrowserRouter;
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
 
     <CssBaseline>
       <ThemeProvider theme={themeApp}>
@@ -28,5 +27,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <App />
         </Router>
       </ThemeProvider>
-    </CssBaseline>,
-)
+    </CssBaseline>
+
+);

@@ -1,6 +1,6 @@
 import type { SxProps } from '@mui/material';
 import { ReactElement } from 'react';
-import { Navigate, NavigateProps, Route, RouteProps } from 'react-router-dom';
+import { Navigate, NavigateProps, Route, RouteProps, useRoutes } from 'react-router-dom';
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
 export interface EventsTransitionProps {
@@ -16,7 +16,7 @@ type ChildElement = RouteElement | ReactElement<NavigateProps, typeof Navigate>;
 
 export interface CommonTransitionProps extends EventsTransitionProps{
   keyAnimation: string;
-  children: ChildElement | (ChildElement | undefined | null)[];
+  children:  ReturnType<typeof useRoutes> //ChildElement | (ChildElement | undefined | null)[];
   sx?:SxProps;
   sxItem?:SxProps;
   classNameItem?:string;

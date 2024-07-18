@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { NavLink, RouteObject, useLocation, useRoutes } from "react-router-dom";
 
-// import { RouteAnimation } from "route-animation";
 import { CONST_ROUTES_PRIVATE } from '../../CONTS/CONST_ROUTES';
 import { RenderCard } from '../../components/RenderCard/RenderCard';
 import { RouteAnimation } from '../../lib';
@@ -63,7 +62,7 @@ export const Slide2 = () => {
         animation="slide"
         itemsRoutes={itemsRoutesForSlide2}
       >
-        <>{routes}</>
+        {routes}
       </RouteAnimation>
     </Box>
   );
@@ -128,7 +127,7 @@ const SettingsMemo = () => {
       </Box>
       <Box sx={{ mt: 2 }}>
         <RouteAnimation itemsRoutes={settingsRoutes} mode="slide" typeAnimation='total-forward' >
-          <>{routes}</>
+          {routes}
         </RouteAnimation>
       </Box>
     </div>

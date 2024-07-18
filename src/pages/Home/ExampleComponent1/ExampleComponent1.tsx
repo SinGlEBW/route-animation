@@ -7,9 +7,10 @@ import {
   type RouteObject,
 } from "react-router-dom";
 
-import { RouteAnimation } from "route-animation";
+
 import { CONST_ROUTES_PRIVATE } from "../../../CONTS/CONST_ROUTES";
 import { RenderCard } from '../../../components/RenderCard/RenderCard';
+import { RouteAnimation } from '../../../lib';
 
 
 
@@ -99,7 +100,7 @@ const ExampleComponent1Memo = () => {
       mode="slide"
       typeAnimation="total-forward"
     >
-      <>{routes}</>
+      {routes}
     </RouteAnimation>
   );
 };

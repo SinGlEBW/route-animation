@@ -40,7 +40,7 @@ export function App() {
     <>
       <div className={'content_app'} style={{ position: 'relative' }} >
         <RouteAnimation itemsRoutes={mainRoutes}>
-          <>{routes}</>
+          {routes}
         </RouteAnimation>
       </div>
     </>
@@ -75,7 +75,7 @@ const SettingsMemo = () => {
         <Button component={NavLink} to={'/settings/1'} variant={'outlined'}>Начать</Button>
       </Box>
       <RouteAnimation itemsRoutes={itemsRoutes}>
-        <>{routes}</>
+        {routes}
       </RouteAnimation>
     </div>
   )
@@ -99,7 +99,7 @@ export function App() {
     <div className={'content_app'} style={{ position: 'relative' }} >
       <Container sx={{ py: 1, position: 'relative' }}>
         <RouteAnimation itemsRoutes={mainRoutes}  mode='slide' animation='slide' typeAnimation='no-destroy' isFadeSlide={true}  >
-          <>{routes}</>
+          {routes}
         </RouteAnimation>
       </Container>
     </div>
@@ -189,7 +189,7 @@ const HomeMemo = () => {
       </p>
       <Box sx={{ mt: 2 }}>
         <RouteAnimation itemsRoutes={itemsHomeRoutes} mode='slide' typeAnimation='total-forward' >
-          <>{routes}</>
+          {routes}
         </RouteAnimation>
       </Box>
     </div>

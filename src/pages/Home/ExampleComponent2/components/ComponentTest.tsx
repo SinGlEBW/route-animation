@@ -1,7 +1,14 @@
 import { Box, Button } from "@mui/material";
 import React, { useMemo } from "react";
-import { RouteAnimation } from "route-animation";
-import { NavLink, useLocation, useRoutes, type RouteObject } from "react-router-dom";
+
+import {
+  NavLink,
+  useLocation,
+  useRoutes,
+  type RouteObject,
+} from "react-router-dom";
+import { RouteAnimation } from '../../../../lib';
+
 
 const popupKeys = ["keyName1", "keyName2", "keyName3"] as const;
 const ComponentTestMemo = ({ parentRelation, keyName }) => {
@@ -75,7 +82,7 @@ const ComponentTestMemo = ({ parentRelation, keyName }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <RouteAnimation itemsRoutes={popupRoutes} mode="slide">
-        <>{routes}</>
+        {routes}
       </RouteAnimation>
     </Box>
   );
@@ -160,7 +167,7 @@ const SlideContainer = ({ parentRelation, keyName }) => {
   return (
     <Box sx={{ mt: 2 }}>
       <RouteAnimation itemsRoutes={slideRoutes} mode="slide">
-        <>{routes}</>
+        {routes}
       </RouteAnimation>
     </Box>
   );

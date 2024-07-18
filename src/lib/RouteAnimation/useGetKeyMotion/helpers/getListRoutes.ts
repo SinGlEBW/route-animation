@@ -5,6 +5,8 @@ type Handle =  {handle?: {parentRelation?: string}};
 export interface listAllRoutesI extends Partial<Record<'id' | 'parentRelation' | 'relationToPath', string> & Handle & {path: string}>{
   inx:number
 }
+
+
 export type ItemsRoutes = (RouteObject & Handle)[]
 export const getListRoutes = (routes:ItemsRoutes) => {
 

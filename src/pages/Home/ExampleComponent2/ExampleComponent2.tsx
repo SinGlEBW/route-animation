@@ -1,9 +1,11 @@
 import { Box, Button } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import { NavLink, useLocation, useRoutes } from "react-router-dom";
-import { RouteAnimation } from "route-animation";
+
 import { CONST_ROUTES_PRIVATE } from "../../../CONTS/CONST_ROUTES";
 import { ComponentTest } from "./components/ComponentTest";
+import { RouteAnimation } from '../../../lib';
+
 
 const ExampleComponent2Memo = () => {
   const [state, setState] = useState({ keyName: "" });
@@ -50,13 +52,34 @@ const ExampleComponent2Memo = () => {
           p: 2,
         }}
       >
-        <Button variant={"outlined"} component={NavLink} onClick={() => setState({ keyName: "keyName1" })} to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-1"}>Popup1</Button>
-        <Button variant={"outlined"} component={NavLink} onClick={() => setState({ keyName: "keyName2" })} to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-2"}>Popup2</Button>
-        <Button variant={"outlined"} component={NavLink} onClick={() => setState({ keyName: "keyName3" })} to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-3"}>Popup3</Button>
+        <Button
+          variant={"outlined"}
+          component={NavLink}
+          onClick={() => setState({ keyName: "keyName1" })}
+          to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-1"}
+        >
+          Popup1
+        </Button>
+        <Button
+          variant={"outlined"}
+          component={NavLink}
+          onClick={() => setState({ keyName: "keyName2" })}
+          to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-2"}
+        >
+          Popup2
+        </Button>
+        <Button
+          variant={"outlined"}
+          component={NavLink}
+          onClick={() => setState({ keyName: "keyName3" })}
+          to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-3"}
+        >
+          Popup3
+        </Button>
       </Box>
       <Box sx={{ mt: 2 }}>
         <RouteAnimation itemsRoutes={itemsRoutes} mode="slide">
-          <>{routes}</>
+          {routes}
         </RouteAnimation>
       </Box>
     </>

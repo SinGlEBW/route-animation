@@ -10,6 +10,7 @@ import { CommonTransitionProps } from '../TransitionProps';
 import { CustomTransitionGroup, type CustomTransitionProps } from './components/CustomTransitionGroup';
 import { createPortal } from 'react-dom';
 import { BoxBlockSlide } from './components/BoxBlockSlide';
+import { useLocation } from 'react-router-dom';
 
 
 
@@ -119,7 +120,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
     [typeAnimation, duration]
   );
 
-
+  const location = useLocation()
 
   return (
     <>

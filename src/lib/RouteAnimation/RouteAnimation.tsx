@@ -3,50 +3,53 @@ import React, { useContext, useRef } from 'react';
 import { useGetKeyMotion, ItemsRoutes } from './useGetKeyMotion/useGetKeyMotion';
 import { ReactTransition, FTProps, STProps,  } from './Animation/ReactTransition/ReactTransition';
 import { UNSAFE_RouteContext, useLocation } from 'react-router-dom';
+import { useDirection } from './hook/useDirection';
 
-interface RouteAnimationMemoProps {
+
+type S = Omit<STProps, 'direction' | 'keyAnimation' | 'extendsRoutes' | 'handleDataRoute'> & {
   itemsRoutes: ItemsRoutes
-}
+};
+type F = Omit<FTProps, 'direction' | 'keyAnimation'> & {
+    itemsRoutes: ItemsRoutes
+};
 
-type S = Omit<STProps, 'direction' | 'keyAnimation' | 'extendsRoutes' | 'handleDataRoute'> & RouteAnimationMemoProps & {};
-type F = Omit<FTProps, 'direction' | 'keyAnimation'> & RouteAnimationMemoProps & {};
+export type RouteAnimationProps =  S | F;
 
 
-
-
-function RouteAnimationMemo(props:S | F) {
+function RouteAnimationMemo(props:RouteAnimationProps) {
   const { itemsRoutes, children, ...p } = props;
 
   const { handleDataRoute, extendsRoutes } = useGetKeyMotion(itemsRoutes);
+  const direction = useDirection(handleDataRoute);
 
-  const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
-  const direction = useRef<STProps['direction']>('forward');//undirected
+//   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
+//   const direction = useRef<STProps['direction']>('forward');//undirected
 
-/*--------------------------------------------------------------*/
+// /*--------------------------------------------------------------*/
 
-  if (handleDataRoute && prevRouteRef.current?.path && prevRouteRef.current.path !== handleDataRoute.path) {
-    const indexDiff = handleDataRoute.inx - prevRouteRef.current.inx;
-    if (indexDiff > 0) {
-      direction.current = 'forward';
-    } else if (indexDiff < 0) {
-      direction.current = 'back';
-    } else if (indexDiff === 0) {
-      debugger
-      direction.current = 'undirected';
-      // direction.current = 'forward';
-    }
-  }
+//   if (handleDataRoute && prevRouteRef.current?.path && prevRouteRef.current.path !== handleDataRoute.path) {
+//     const indexDiff = handleDataRoute.inx - prevRouteRef.current.inx;
+//     if (indexDiff > 0) {
+//       direction.current = 'forward';
+//     } else if (indexDiff < 0) {
+//       direction.current = 'back';
+//     } else if (indexDiff === 0) {
+//       debugger
+//       direction.current = 'undirected';
+//       // direction.current = 'forward';
+//     }
+//   }
 
-  prevRouteRef.current = handleDataRoute;
+//   prevRouteRef.current = handleDataRoute;
 
   return (
     <>
       <ReactTransition 
         keyAnimation={handleDataRoute.path as string} 
-        direction={direction.current}
+        direction={direction}
         {...p} 
         {...(p.mode === 'slide' && {extendsRoutes, handleDataRoute} as any)} >
-        {children}
+        <>{children}</>
       </ReactTransition>
     </>
   )
