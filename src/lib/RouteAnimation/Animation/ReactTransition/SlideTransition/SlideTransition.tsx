@@ -13,7 +13,6 @@ import { BoxBlockSlide } from './components/BoxBlockSlide';
 import { useLocation } from 'react-router-dom';
 
 
-
 export type SlideWithPopupProps = {
   isPopup: true;
   typeAnimation: 'destroy' | 'no-destroy';
@@ -162,7 +161,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
     <Portal disablePortal={!isPopup}>
       <CustomTransitionGroup
-        className={`${isPopup && "popup-routes"} slide-routes ${animation}`}
+        className={cn({['popup-routes']: isPopup}, `slide-routes ${animation}`)}
         childFactory={childFactory as any}
         duration={duration}
         isFadeSlide={isFadeSlide}

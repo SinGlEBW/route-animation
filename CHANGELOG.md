@@ -15,5 +15,11 @@
     Если isPopup в typeAnimation 2 режима "destroy" | "no-destroy"
 
 
+## [1.1.28] - 2025-07-25
+
+### Fixed
+*   className popup-routes в CustomTransitionGroup
+
+
 
 
