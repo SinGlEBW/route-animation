@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Dialog, Portal, Typography } from "@mui/material";
 import { NavLink, RouteObject, useLocation, useRoutes } from "react-router-dom";
 
 import { CONST_ROUTES_PRIVATE } from '../../CONTS/CONST_ROUTES';
@@ -52,6 +52,9 @@ export const Slide2 = () => {
         <Button variant={"outlined"} component={NavLink} to={"/settings/2/1"}>
           Вложенный роут
         </Button>
+        <Button variant={"outlined"} component={NavLink} to={"/settings/2/3"}>
+          Popup
+        </Button>
         <Button variant={"outlined"} component={NavLink} to={"/settings"}>
           Закончить
         </Button>
@@ -59,7 +62,7 @@ export const Slide2 = () => {
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
       <RouteAnimation
         mode='slide'
-        animation="slide"
+        animation="vertical-slide"
         itemsRoutes={itemsRoutesForSlide2}
       >
         {routes}
@@ -105,9 +108,37 @@ const settingsRoutes: RouteObject[] = [
   },
 ];
 
+
+const Popup = (params) => {
+
+  return (
+    <Box sx={{background: '#fff', height: '100%'}}>
+      <Button variant={"outlined"} component={NavLink} to={"/settings/2"}>
+        Назад
+      </Button>
+      <p>Popup</p>
+    </Box>
+  )
+}
+
+
+const popupItemsRoutes: RouteObject[] = [
+  {
+    path: "/2/3",
+    element: <Popup />,
+    handle: {
+      parentRelation: "/settings",
+    },
+  },
+];
+
+
+
+
 const SettingsMemo = () => {
   const location = useLocation();
   const routes = useRoutes(settingsRoutes, location);
+  const routesPopup = useRoutes(popupItemsRoutes, location);
 
   useEffect(() => {
     console.dir("Render Settings");
@@ -115,6 +146,9 @@ const SettingsMemo = () => {
       console.dir("Покинули Render Settings");
     };
   }, []);
+
+ 
+
 
   return (
     <div className="settings">
@@ -130,6 +164,11 @@ const SettingsMemo = () => {
           {routes}
         </RouteAnimation>
       </Box>
+      
+      <RouteAnimation itemsRoutes={popupItemsRoutes} isPopup animation={'vertical-slide'} 
+        mode="slide" typeAnimation='destroy' onPopup={(status) => console.log(status)} >
+        {routesPopup}
+      </RouteAnimation>
     </div>
   );
 };

@@ -23,12 +23,12 @@ const ExampleComponent2Memo = () => {
       //     },
       //   },
       {
-        path: CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/*",
+        path: CONST_ROUTES_PRIVATE.HOME_SLIDE + "/*",
         element: (
           <Box>
-            <p>Popup keyName: ({state.keyName})</p>
+            <p>Slide keyName: ({state.keyName})</p>
             <ComponentTest
-              parentRelation={CONST_ROUTES_PRIVATE.POPUP_SLIDE}
+              parentRelation={CONST_ROUTES_PRIVATE.HOME_SLIDE}
               keyName={state.keyName}
             />
           </Box>
@@ -56,25 +56,25 @@ const ExampleComponent2Memo = () => {
           variant={"outlined"}
           component={NavLink}
           onClick={() => setState({ keyName: "keyName1" })}
-          to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-1"}
+          to={CONST_ROUTES_PRIVATE.HOME_SLIDE + "/chart-1"}
         >
-          Popup1
+          Slide1
         </Button>
         <Button
           variant={"outlined"}
           component={NavLink}
           onClick={() => setState({ keyName: "keyName2" })}
-          to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-2"}
+          to={CONST_ROUTES_PRIVATE.HOME_SLIDE + "/chart-2"}
         >
-          Popup2
+          Slide2
         </Button>
         <Button
           variant={"outlined"}
           component={NavLink}
           onClick={() => setState({ keyName: "keyName3" })}
-          to={CONST_ROUTES_PRIVATE.POPUP_SLIDE + "/chart-3"}
+          to={CONST_ROUTES_PRIVATE.HOME_SLIDE + "/chart-3"}
         >
-          Popup3
+          Slide3
         </Button>
       </Box>
       <Box sx={{ mt: 2 }}>

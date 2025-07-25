@@ -199,6 +199,68 @@ const HomeMemo = () => {
 export const Home = React.memo(HomeMemo);
 ```
 
+### Example 3
+
+```tsx
+const Popup = (params) => {
+
+  return (
+    <Box sx={{background: '#fff', height: '100%'}}>
+      <Button variant={"outlined"} component={NavLink} to={"/settings"}>
+        Назад
+      </Button>
+      <p>Popup</p>
+    </Box>
+  )
+}
+
+
+const popupItemsRoutes: RouteObject[] = [
+  {
+    path: "/2/3",
+    element: <Popup />,
+    handle: {
+      parentRelation: "/settings",
+    },
+  },
+];
+
+
+
+const Settings = () => {
+  const location = useLocation();
+  const routes = useRoutes(settingsRoutes, location);
+  const routesPopup = useRoutes(popupItemsRoutes, location);
+
+  return (
+    <div className="settings">
+      <Typography>Settings</Typography>
+      <Box>
+        <Button component={NavLink} to={"/settings/2/3"} variant={"outlined"}>
+          Popup
+        </Button>
+      </Box>
+      <Box sx={{ mt: 2 }}>
+        <RouteAnimation itemsRoutes={settingsRoutes} mode="slide" typeAnimation='total-forward' >
+          {routes}
+        </RouteAnimation>
+      </Box>
+      
+      <RouteAnimation 
+        itemsRoutes={popupItemsRoutes} 
+        isPopup={true} 
+        animation={'vertical-slide'} 
+        mode="slide" 
+        typeAnimation='destroy' 
+        onPopup={(status) => console.log(status)} >
+        {routesPopup}
+      </RouteAnimation>
+
+
+    </div>
+  );
+};
+```
 
 
 ```html
@@ -240,13 +302,16 @@ export const Home = React.memo(HomeMemo);
 
 ### RouteAnimation mode = 'slide' (default 'fade')
 
-| Prop          | Type    | Default | Description                                                                                      |
-|---------------|---------|---------|--------------------------------------------------------------------------------------------------|
-|`animation`    |`string` |`'slide'`| Animation effect type, `'slide'`, `'vertical-slide'`, or `'rotate'`                              |
-|`isFadeSlide`  |`boolean`|`'false'`| Change visual animation `'slide'`, `'vertical-slide'`                                            |
-|`duration`     |`number` |`200`    | `transition-duration` `ms`                                                                       |
-|`timing`       |`string` |`'ease'` | `transition-timing-function`, one of `'ease'` `'ease-in'` `'ease-out'` `'ease-in-out'` `'linear'`|
-|`typeAnimation`|`string` |`destroy`|  `destroy`, `no-destroy`, `total-forward`                                                        |
+| Prop          | Type                      | Default         | Description                                                                                      |
+|---------------|---------------------------|-----------------|--------------------------------------------------------------------------------------------------|
+|`animation`    |`string`                   |`'slide'`        | Animation effect type, `'slide'`, `'vertical-slide'`, or `'rotate'`                              |
+|`isFadeSlide`  |`boolean`                  |`false`          | Change visual animation `'slide'`, `'vertical-slide'`                                            |
+|`duration`     |`number`                   |`200`            | `transition-duration` `ms`                                                                       |
+|`timing`       |`string`                   |`'ease'`         | `transition-timing-function`, one of `'ease'` `'ease-in'` `'ease-out'` `'ease-in-out'` `'linear'`|
+|`typeAnimation`|`string`                   |`'destroy'`      |  `destroy`, `no-destroy`, `total-forward`                                                        |
+|`direction`    |`string`                   |`'forward'`      |  `forward`, `back`                                                                               |
+|`isPopup`      |`boolean`                  |`false`          |  Transfers the route to the body                                                                 |
+|`onPopup`      |`(status: boolean) => void`|`undefined`      |  If isPopup is true, you can use onPopup                                                         |
 
 
 

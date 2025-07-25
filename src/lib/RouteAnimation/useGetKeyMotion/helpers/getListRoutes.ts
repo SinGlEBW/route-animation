@@ -20,8 +20,8 @@ export const getListRoutes = (routes:ItemsRoutes) => {
   
     for(let i = 0; i < arr.length; i++){
       const { id, path, children, handle, index } = arr[i]
-     
-      
+
+
       const isParentRelation = handle && 'parentRelation' in handle as boolean;
       let currentPath = '';// index ? isParentRelation ? getConnectPath(handle.parentRelation) : '/' : path ? path : listAllRoutes[listAllRoutes.length - 1].path;
     
@@ -49,10 +49,7 @@ export const getListRoutes = (routes:ItemsRoutes) => {
     
       // const pathPayload = isParentRelation ? getConnectPath(handle?.parentRelation + p ) : p;
 
-      // if(currentPath == '//'){
      
-
-      // }
 
       const payloadPush = { 
         id: id ? id : uuid4(),
@@ -87,45 +84,3 @@ const getIndexPath = (parentRelation) => {
   return parentRelation ? getConnectPath(parentRelation) + '/'  : '/'
 }
 
-
-/*
-    const recursiveFindChildren = (arr:ItemsRoutes) => {
-    
-    for(let i = 0; i < arr.length; i++){
-      const { id, path, children, handle, index } = arr[i];
-    
-      const p = index ? handle?.parentRelation ? handle.parentRelation : '/' : path ? path : listAllRoutes[listAllRoutes.length - 1].path;
-
-
-      const isChildren = !!(children && children.length);
-   
-      relationToPath = p as string;
-      if(!isChildren){
-        if(listAllRoutes.length){
-          const prevRelationToPage = listAllRoutes[listAllRoutes.length - 1].relationToPath
-          if(parentRelation === prevRelationToPage && parentRelation !== '/'){
-            relationToPath = prevRelationToPage;
-          }
-        }
-      }
-      const payloadPush = { 
-        id: id ? id : uuid4(),
-        inx, 
-        path: handle && handle?.parentRelation ? getConnectPath(handle?.parentRelation + p ) : p, 
-        handle, 
-        parentRelation: handle && handle?.parentRelation ? handle?.parentRelation : parentRelation, 
-        relationToPath 
-      }
-      listAllRoutes.push(payloadPush);
-      inx++;
-      if(isChildren){
-        parentRelation = p as string;
-        recursiveFindChildren(children);
-        parentRelation = '/';
-      }
-    }
-  }
-  recursiveFindChildren(routes);
-  return listAllRoutes;
-}
-*/

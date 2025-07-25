@@ -4,11 +4,12 @@ import type { CommonTransitionProps } from '../../TransitionProps';
 import { getTransformStyles } from './helpers/getTransformStyles';
 import { getFadeStyles } from './helpers/getFadeStyles';
 
-type Direction_OR = 'forward' | 'back' | 'undirected';
+export type Direction_OR = 'forward' | 'back' | 'undirected';
 
 export interface CustomTransitionProps {
   direction: Direction_OR;
-  isFadeSlide?:boolean
+  isFadeSlide?:boolean;
+  isPopup?: boolean;
 }
 
 const getTransition = ({duration, isFadeSlide, easing}) => {
@@ -21,11 +22,18 @@ const getTransition = ({duration, isFadeSlide, easing}) => {
 
 export const CustomTransitionGroup = styled(TransitionGroup, {
   shouldForwardProp: (prop) => {
-    return !['isFadeSlide', 'easing', 'duration', 'direction', 'sx', 'sxItem'].includes(prop as string)
+    return !['isFadeSlide', 'easing', 'duration', 'direction', 'sx', 'sxItem', 'isPopup'].includes(prop as string)
   }
-})<CustomTransitionProps & Pick<CommonTransitionProps, 'duration' | 'easing' | 'sxItem'>>(({ duration, easing, sxItem = {}, direction, isFadeSlide = false }) => {
+})<CustomTransitionProps & Pick<CommonTransitionProps, 'duration' | 'easing' | 'sxItem'>>(({ duration, easing, sxItem = {}, isPopup = false, direction, isFadeSlide = false }) => {
   return {
     display: 'grid',
+    ...(isPopup && {
+      position: 'fixed',
+      zIndex: 1000,
+      bottom: 0,
+      width: '100%',
+      backgroundColor: 'rgba(0, 0, 0, 0.3)'
+    }),
     '& > .item': {
       overflow: 'hidden',
       gridArea: '1 / 1 / 2 / 2',

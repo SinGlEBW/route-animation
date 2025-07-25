@@ -2,26 +2,34 @@ import type { FC } from 'react';
 import React, { useContext, useRef } from 'react';
 import { useGetKeyMotion, ItemsRoutes } from './useGetKeyMotion/useGetKeyMotion';
 import { ReactTransition, FTProps, STProps,  } from './Animation/ReactTransition/ReactTransition';
-import { UNSAFE_RouteContext, useLocation } from 'react-router-dom';
+import { SlidePopupProps } from './Animation/ReactTransition/SlideTransition/SlideTransition';
+
 import { useDirection } from './hook/useDirection';
 
 
 type S = Omit<STProps, 'direction' | 'keyAnimation' | 'extendsRoutes' | 'handleDataRoute'> & {
+  itemsRoutes: ItemsRoutes;
+  direction?: Exclude<STProps['direction'], "undirected"> 
+} & SlidePopupProps;
+
+type F = Omit<FTProps, 'direction' | 'keyAnimation'> & {
   itemsRoutes: ItemsRoutes
 };
-type F = Omit<FTProps, 'direction' | 'keyAnimation'> & {
-    itemsRoutes: ItemsRoutes
-};
+
 
 export type RouteAnimationProps =  S | F;
 
 
-function RouteAnimationMemo(props:RouteAnimationProps) {
-  const { itemsRoutes, children, ...p } = props;
+
+
+
+
+const RouteAnimationMemo: FC<RouteAnimationProps> = (props) => {
+  const { itemsRoutes, children, direction: initDirection,  ...p } = props as S;
 
   const { handleDataRoute, extendsRoutes } = useGetKeyMotion(itemsRoutes);
-  const direction = useDirection(handleDataRoute);
-
+  const direction = useDirection(handleDataRoute, initDirection);
+ 
 //   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
 //   const direction = useRef<STProps['direction']>('forward');//undirected
 
@@ -42,6 +50,9 @@ function RouteAnimationMemo(props:RouteAnimationProps) {
 
 //   prevRouteRef.current = handleDataRoute;
 
+
+
+
   return (
     <>
       <ReactTransition 
@@ -49,7 +60,7 @@ function RouteAnimationMemo(props:RouteAnimationProps) {
         direction={direction}
         {...p} 
         {...(p.mode === 'slide' && {extendsRoutes, handleDataRoute} as any)} >
-        <>{children}</>
+        {children}
       </ReactTransition>
     </>
   )

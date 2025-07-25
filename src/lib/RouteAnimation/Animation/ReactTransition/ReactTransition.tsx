@@ -4,9 +4,8 @@ import { SlideTransition, SlideTransitionProps } from './SlideTransition/SlideTr
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
 
-export type FTProps = FadeTransitionProps & {mode?: 'fade' | never; direction: SlideTransitionProps['direction'] };
-export type STProps = SlideTransitionProps & {mode?: 'slide' | never  };
-
+export type FTProps = FadeTransitionProps & { mode?: 'fade' | never; };
+export type STProps = SlideTransitionProps & { mode?: 'slide' | never; direction: SlideTransitionProps['direction'] };
 
 
 function ReactTransitionMemo({ mode = 'fade', ...props }:  STProps | FTProps) {

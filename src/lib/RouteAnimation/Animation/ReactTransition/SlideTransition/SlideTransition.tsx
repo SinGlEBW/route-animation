@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Portal } from '@mui/material';
 import cn from 'classnames';
 import React, { FC, ReactElement, cloneElement, createRef, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
 import { CSSTransition, Transition, TransitionGroup, } from 'react-transition-group';
@@ -14,42 +14,78 @@ import { useLocation } from 'react-router-dom';
 
 
 
+export type SlideWithPopupProps = {
+  isPopup: true;
+  typeAnimation: 'destroy' | 'no-destroy';
+  onPopup?: (status: boolean) => void;
+};
 
-export type SlideTransitionProps = {
-  animation?: 'slide' | 'vertical-slide' | 'rotate';// | 'fade';
-  typeAnimation?: 'destroy' | 'no-destroy' | 'total-forward',
+export type SlideWithOutPopupProps = {
+  isPopup?: false;
+  typeAnimation?: 'destroy' | 'no-destroy' | 'total-forward';
+};
+
+type SlideTransitionBaseProps = {
+  animation?: 'slide' | 'vertical-slide' | 'rotate'; // | 'fade';
   extendsRoutes: listAllRoutesI[],
   handleDataRoute: listAllRoutesI
   onSlideEnd?: () => void
-  // initAnim?: boolean
-} & CommonTransitionProps & CustomTransitionProps;
+} & CommonTransitionProps & Omit<CustomTransitionProps, 'isPopup'>;
+
+
+export type SlidePopupProps = SlideWithPopupProps | SlideWithOutPopupProps;
+
+export type SlideTransitionProps = SlideTransitionBaseProps & SlidePopupProps;
+
+
 
 /*
   TODO:  Если резкр вернуться назад переступив через несолько ссылок в режиме total-forward, то удаляется не весь стек
   1. Добавить сброс висящих элементов когда перескакиваем через роут
 */
 
+
+
 const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
   const {
-    onEnter, onExited, animation = 'slide', duration = 300, easing = 'ease', typeAnimation = 'destroy',
+    isPopup = false,
+    onEnter, onExited,  animation = 'slide', duration = 300, easing = 'ease', typeAnimation = 'destroy',
     keyAnimation, direction, sx, classNameItem, isFadeSlide = false, extendsRoutes,
     sxItem = {}, handleDataRoute, children, ...p
   } = props;
 
+  const { onPopup } = props as SlideWithPopupProps;
+
   const configRef = useRef({
     prevPath: keyAnimation,
     deleteItem: null as any | null,
-    touchedItems: [] as ReactElement<CSSTransitionProps>[]
+    touchedItems: [] as ReactElement<CSSTransitionProps>[],
+    isOpenPopup: !children,
+    children
   });
 
   const [showBoxBlockSlide, setStateShowBoxBlockSlide] = useState(false);
-  // const [control, setControl] = useState({});
+  const [isOpenPopup, setOpenPopup] = useState(() => isPopup && !!children);
 
+  configRef.current.children = children;
+  configRef.current.isOpenPopup = isOpenPopup;
 
   const onSlideStart = () => {
-    setStateShowBoxBlockSlide(true)
+    if (isPopup && configRef.current.children && !configRef.current.isOpenPopup) {
+      console.log('Open')
+      setOpenPopup(true)
+      onPopup && onPopup(true);
+    }
+    setStateShowBoxBlockSlide(true);
   }
+
+
   const onSlideEnd = () => {
+    if (isPopup && !configRef.current.children && configRef.current.isOpenPopup) {
+      console.log('Close')
+      setOpenPopup(false);
+      onPopup && onPopup(false);
+    }
     setStateShowBoxBlockSlide(false)
   }
 
@@ -89,9 +125,9 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
         }
       }
 
-    
+
       const isChild = (child?.props?.children as any)?.props?.children
-      return cloneElement(child, { classNames: cn('item', classNameItem, direction), ...(isChild && {children: <Box sx={{overflow: 'hidden', ...sxItem}}>{(child.props as any)?.children}</Box>})});
+      return cloneElement(child, { classNames: cn('item', classNameItem, direction), ...(isChild && { children: <Box sx={{ overflow: 'hidden', ...sxItem }}>{(child.props as any)?.children}</Box> }) });
     },
     [typeAnimation, classNameItem, direction, handleDataRoute.path, extendsRoutes, keyAnimation]
   );
@@ -120,20 +156,22 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
     [typeAnimation, duration]
   );
 
-  const location = useLocation()
+
 
   return (
-    <>
 
+    <Portal disablePortal={!isPopup}>
       <CustomTransitionGroup
-        className={`slide-routes ${animation}`}
+        className={`${isPopup && "popup-routes"} slide-routes ${animation}`}
         childFactory={childFactory as any}
         duration={duration}
         isFadeSlide={isFadeSlide}
         easing={easing}
+        isPopup={isPopup}
         direction={direction}
+        style={isPopup ? ({ height: isOpenPopup ? '100%' : "0%" }) : {}}
         sx={sx}
-        // sxItem={sxItem}
+      // sxItem={sxItem}
       // appear={initAnim}
       >
         <CSSTransition
@@ -154,20 +192,17 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
           onExited={(node: HTMLElement) => {
             typeAnimation === 'destroy' && onSlideEnd();
-
             typeof onExited === 'function' && onExited(node)
           }}
-
-
           unmountOnExit
         >
-          {children}
+          <>{children}</>
         </CSSTransition>
       </CustomTransitionGroup>
       {
         showBoxBlockSlide && <BoxBlockSlide />
       }
-    </>
+    </Portal>
   )
 };
 
