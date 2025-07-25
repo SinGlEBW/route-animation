@@ -112,7 +112,7 @@ const settingsRoutes: RouteObject[] = [
 const Popup = (params) => {
 
   return (
-    <Box sx={{background: '#fff', height: '100%'}}>
+    <Box sx={{background: '#456', height: '50%'}}>
       <Button variant={"outlined"} component={NavLink} to={"/settings/2"}>
         Назад
       </Button>

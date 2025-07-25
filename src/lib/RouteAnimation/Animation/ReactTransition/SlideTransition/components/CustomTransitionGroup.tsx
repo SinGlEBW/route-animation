@@ -32,7 +32,7 @@ export const CustomTransitionGroup = styled(TransitionGroup, {
       zIndex: 1000,
       bottom: 0,
       width: '100%',
-      backgroundColor: 'rgba(0, 0, 0, 0.3)'
+      // backgroundColor: 'rgba(0, 0, 0, 0.3)'
     }),
     '& > .item': {
       overflow: 'hidden',

@@ -20,6 +20,11 @@
 ### Fixed
 *   className popup-routes в CustomTransitionGroup
 
+## [1.1.29] - 2025-07-25
+
+### Remover
+*   Удален задний фон у CustomTransitionGroup при использовании isPopup
+
 
 
 
