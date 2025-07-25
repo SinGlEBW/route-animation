@@ -1,8 +1,12 @@
 {
   "name": "route-animation",
-  "version": "1.1.26",
+  "version": "1.1.27",
   "author": "SinGlEBW",
   "license": "MIT",
+  "homepage": "https://github.com/SinGlEBW/route-animation#readme",
+  "bugs": {
+    "url": "https://github.com/SinGlEBW/route-animation/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SinGlEBW/route-animation.git"
@@ -23,7 +27,7 @@
     "components"
   ],
   "scripts": {
-    "start": "vite",
+    "dev": "vite",
     "build": "tsc --p ./tsconfig-build.json && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

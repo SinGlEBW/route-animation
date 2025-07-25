@@ -140,12 +140,7 @@ const SettingsMemo = () => {
   const routes = useRoutes(settingsRoutes, location);
   const routesPopup = useRoutes(popupItemsRoutes, location);
 
-  useEffect(() => {
-    console.dir("Render Settings");
-    return () => {
-      console.dir("Покинули Render Settings");
-    };
-  }, []);
+ 
 
  
 
@@ -164,11 +159,13 @@ const SettingsMemo = () => {
           {routes}
         </RouteAnimation>
       </Box>
-      
+      <Portal container={document.body}>
+
       <RouteAnimation itemsRoutes={popupItemsRoutes} isPopup animation={'vertical-slide'} 
-        mode="slide" typeAnimation='destroy' onPopup={(status) => console.log(status)} >
+        mode="slide" typeAnimation='destroy' >
         {routesPopup}
       </RouteAnimation>
+          </Portal>
     </div>
   );
 };

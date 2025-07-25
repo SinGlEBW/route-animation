@@ -72,7 +72,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
   const onSlideStart = () => {
     if (isPopup && configRef.current.children && !configRef.current.isOpenPopup) {
-      console.log('Open')
+  
       setOpenPopup(true)
       onPopup && onPopup(true);
     }
@@ -82,7 +82,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
   const onSlideEnd = () => {
     if (isPopup && !configRef.current.children && configRef.current.isOpenPopup) {
-      console.log('Close')
+   
       setOpenPopup(false);
       onPopup && onPopup(false);
     }
