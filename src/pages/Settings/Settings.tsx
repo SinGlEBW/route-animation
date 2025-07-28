@@ -140,11 +140,6 @@ const SettingsMemo = () => {
   const routes = useRoutes(settingsRoutes, location);
   const routesPopup = useRoutes(popupItemsRoutes, location);
 
- 
-
- 
-
-
   return (
     <div className="settings">
       <Typography>Settings</Typography>

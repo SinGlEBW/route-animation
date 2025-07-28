@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import React, { useMemo } from "react"
+import React from "react"
 import { createPortal } from 'react-dom';
 
 const BoxBlockSlideMemo = ({sx = {}, className = ''}) => {

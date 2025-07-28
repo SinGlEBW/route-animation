@@ -1,16 +1,13 @@
 import { Box, Portal } from '@mui/material';
 import cn from 'classnames';
-import React, { FC, ReactElement, cloneElement, createRef, useCallback, useContext, useEffect, useMemo, useRef, useState, } from "react";
-import { CSSTransition, Transition, TransitionGroup, } from 'react-transition-group';
-import { findDOMNode } from 'react-dom';
+import React, { FC, ReactElement, cloneElement, useCallback, useMemo, useRef, useState } from "react";
+import { CSSTransition } from 'react-transition-group';
 
 import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 import type { listAllRoutesI } from '../../../useGetKeyMotion/helpers/getListRoutes';
 import { CommonTransitionProps } from '../TransitionProps';
 import { CustomTransitionGroup, type CustomTransitionProps } from './components/CustomTransitionGroup';
-import { createPortal } from 'react-dom';
 import { BoxBlockSlide } from './components/BoxBlockSlide';
-import { useLocation } from 'react-router-dom';
 
 
 export type SlideWithPopupProps = {
@@ -158,7 +155,6 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
 
 
   return (
-
     <Portal disablePortal={!isPopup}>
       <CustomTransitionGroup
         className={cn({['popup-routes']: isPopup}, `slide-routes ${animation}`)}

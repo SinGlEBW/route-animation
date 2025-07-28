@@ -1,7 +1,6 @@
-import React, { FC } from "react"
+import React from "react"
 import { FadeTransition, FadeTransitionProps } from './FadeTransition/FadeTransition';
 import { SlideTransition, SlideTransitionProps } from './SlideTransition/SlideTransition';
-import { CSSTransitionProps } from 'react-transition-group/CSSTransition';
 
 
 export type FTProps = FadeTransitionProps & { mode?: 'fade' | never; };

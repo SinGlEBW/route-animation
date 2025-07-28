@@ -22,5 +22,4 @@ export interface CommonTransitionProps extends EventsTransitionProps{
   classNameItem?:string;
   duration?: number;
   easing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
-  
 }

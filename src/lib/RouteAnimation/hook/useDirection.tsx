@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import type { listAllRoutesI } from '../useGetKeyMotion/helpers/getListRoutes';
 import type { Direction_OR } from '../Animation/ReactTransition/SlideTransition/components/CustomTransitionGroup';
-//INFO: Добавить в route-animation
 
 
 export const useDirection = (handleDataRoute: listAllRoutesI, initDirection: Omit<Direction_OR, "undirected"> = 'forward') => {

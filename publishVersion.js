@@ -12,13 +12,21 @@ if (!commit) {
 }
 
 try {
+  console.log('🛠 Building project...');
   execSync('npm run build', { stdio: 'inherit' });
+   
+  console.log('📡 Pushing to Git...');
   execSync('git add .', { stdio: 'inherit' });
   execSync(`git commit -m "${commit}"`, { stdio: 'inherit' });
   execSync(`npm version ${version}`, { stdio: 'inherit' });
-  execSync('git push', { stdio: 'inherit' });
+  execSync('git push --follow-tags', { stdio: 'inherit' });
+  
+  console.log('🚀 Publishing to npm...');
   execSync('npm publish', { stdio: 'inherit' });
-} catch (err) {
-  console.error('Error:', err.message);
+  
+  console.log('✅ Successfully published!');
+} catch (error) {
+  console.error('❌ Error:', error.message);
+  console.log('Check full error log for details');
   process.exit(1);
 }
