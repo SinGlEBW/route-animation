@@ -112,7 +112,7 @@ const settingsRoutes: RouteObject[] = [
 const Popup = (params) => {
 
   return (
-    <Box sx={{background: '#456', height: '50%'}}>
+    <Box sx={{background: '#fff', height: '100%'}}>
       <Button variant={"outlined"} component={NavLink} to={"/settings/2"}>
         Назад
       </Button>
@@ -162,7 +162,7 @@ const SettingsMemo = () => {
       <Portal container={document.body}>
 
       <RouteAnimation itemsRoutes={popupItemsRoutes} isPopup animation={'vertical-slide'} 
-        mode="slide" typeAnimation='destroy' >
+        mode="slide" typeAnimation='no-destroy' >
         {routesPopup}
       </RouteAnimation>
           </Portal>

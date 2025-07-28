@@ -32,8 +32,16 @@ export const CustomTransitionGroup = styled(TransitionGroup, {
       zIndex: 1000,
       bottom: 0,
       width: '100%',
-      // backgroundColor: 'rgba(0, 0, 0, 0.3)'
+      ...(isPopup && {
+        transition: `background-color ${duration}ms ${easing}`,
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        [`&:has(>.item.${direction}-exit-active)`]: {
+          backgroundColor: 'rgba(0, 0, 0, 0)'
+        }
+      })
     }),
+
+ 
     '& > .item': {
       overflow: 'hidden',
       gridArea: '1 / 1 / 2 / 2',

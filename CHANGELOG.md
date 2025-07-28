@@ -25,6 +25,11 @@
 ### Remover
 *   Удален задний фон у CustomTransitionGroup при использовании isPopup
 
+## [1.1.30] - 2025-07-25
+
+### Added
+*   Добавлена плавная анимация заднего фона CustomTransitionGroup при использовании isPopup
+
 
 
 
