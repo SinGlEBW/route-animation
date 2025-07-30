@@ -30,6 +30,8 @@ const RouteAnimationMemo: FC<RouteAnimationProps> = (props) => {
   const { handleDataRoute, extendsRoutes } = useGetKeyMotion(itemsRoutes);
   const direction = useDirection(handleDataRoute, initDirection);
  
+  // console.dir(handleDataRoute);
+
 //   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
 //   const direction = useRef<STProps['direction']>('forward');//undirected
 
@@ -42,7 +44,7 @@ const RouteAnimationMemo: FC<RouteAnimationProps> = (props) => {
 //     } else if (indexDiff < 0) {
 //       direction.current = 'back';
 //     } else if (indexDiff === 0) {
-//       debugger
+
 //       direction.current = 'undirected';
 //       // direction.current = 'forward';
 //     }

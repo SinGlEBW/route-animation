@@ -1,5 +1,5 @@
 import { useContext, useMemo, useReducer, useRef, useState } from "react";
-import { Location, UNSAFE_RouteContext, useInRouterContext, useLocation, useMatch, useMatches, useOutletContext, useParams, Params, useSearchParams, parsePath } from 'react-router-dom';
+import { Location, UNSAFE_RouteContext, useInRouterContext, useLocation, useMatch, useMatches, useOutletContext, useParams, Params, useSearchParams, parsePath,  } from 'react-router-dom';
 import { ItemsRoutes, getListRoutes, listAllRoutesI } from './helpers/getListRoutes';
 export type { ItemsRoutes } from './helpers/getListRoutes';
 
@@ -16,7 +16,8 @@ export const useGetKeyMotion = (routes:ItemsRoutes) => {
   const param = useParams();
   const location = useLocation();
   const [state] = useState<{extendsRoutes: listAllRoutesI[]}>(() => {
-    const extendsRoutes = getListRoutes(routes);
+    const extendsRoutes = getListRoutes(routes, parentMatches);
+    // console.dir(parentMatches);
     // console.dir(param);
     // console.dir(parentMatches);
     // console.dir(location);
@@ -30,18 +31,30 @@ export const useGetKeyMotion = (routes:ItemsRoutes) => {
     //   }
     // }
     // 
+    
     return { extendsRoutes }  
   });
 
- 
+
+
   const findHandleDataRoute =  useMemo(() => {
     const findItem = findPage(state.extendsRoutes, location, param);
     return findItem;
   }, [location]);
+
+
+  let parentPath:string | undefined = '';
+  if(parentMatches.length){
+
+    const findItemMatches = parentMatches.find((item) => findHandleDataRoute && findHandleDataRoute?.parentRelation === item.pathnameBase )
+    if(findItemMatches){
+      parentPath = findItemMatches?.route?.path 
+    }else{
+      parentPath = parentMatches[0]?.route?.path;
+    }
+  }
   
 
-  const parentPath = parentMatches.length ? parentMatches[0]?.route?.path : ''
-  
   const returnData = {
     location,
     extendsRoutes: state.extendsRoutes,
@@ -49,7 +62,11 @@ export const useGetKeyMotion = (routes:ItemsRoutes) => {
     ? findHandleDataRoute 
     : parentPath ? {path: parentPath, inx: -1} : state.extendsRoutes[0]// state.extendsRoutes[0] // { path: state.extendsRoutes[0].parentRelation, inx: -1 } //Добавлять из сохранённого общего стэйта 
   }
+  
 
+
+ 
+  
   return returnData
 };
 
@@ -62,7 +79,7 @@ const findPage = (routes:listAllRoutesI[], location:Location<any>, param:Params)
     path = path.replace('/*', '')
     return location.pathname.startsWith(path)
   }
-
+  
   if(param){
     const {["*"]: starParam, ...othersParams } = param;
 

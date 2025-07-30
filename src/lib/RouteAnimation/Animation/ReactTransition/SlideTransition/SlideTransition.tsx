@@ -88,7 +88,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
   const childFactory = useCallback(
     (child: ReactElement<CSSTransitionProps>, inx: number, touchedItems: ReactElement<CSSTransitionProps>[]) => {
       let isRender = child.props.in;
-
+      
       // const cloneChild = cloneElement(child, { classNames: cn('item', classNameItem, direction),});
       const isAnimationTotal = typeAnimation === 'total-forward';
       const childPath = child.props.path;
@@ -105,7 +105,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
           if (nextItemExtendsRoutes) {
             const findTouchedItem = touchedItems.find((touchItem) => touchItem.props.path === nextItemExtendsRoutes.path)
             if (findTouchedItem) {
-              // debugger
+              
               // configRef.current.deleteItem = findTouchedItem
             }
           }
@@ -121,8 +121,8 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
         }
       }
 
-
-      const isChild = (child?.props?.children as any)?.props?.children
+      
+      const isChild = !!(child?.props?.children as any)?.props?.children
       return cloneElement(child, { classNames: cn('item', classNameItem, direction), ...(isChild && { children: <Box sx={{ overflow: 'hidden', ...sxItem }}>{(child.props as any)?.children}</Box> }) });
     },
     [typeAnimation, classNameItem, direction, handleDataRoute.path, extendsRoutes, keyAnimation]

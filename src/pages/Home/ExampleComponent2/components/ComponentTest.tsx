@@ -8,9 +8,10 @@ import {
   type RouteObject,
 } from "react-router-dom";
 import { RouteAnimation } from '../../../../lib';
+import { Other } from './Other';
 
 
-const popupKeys = ["keyName1", "keyName2", "keyName3"] as const;
+const slideKeys = ["keyName1", "keyName2", "keyName3"] as const;
 const ComponentTestMemo = ({ parentRelation, keyName }) => {
   const dataChartsPath = {
     keyName1: "/chart-1",
@@ -46,9 +47,10 @@ const ComponentTestMemo = ({ parentRelation, keyName }) => {
   //   },
   // ];
   /*-------------------------------------------------------------------*/
-  const popupRoutes = useMemo(
+  
+  const slideRoutes = useMemo(
     () =>
-      popupKeys.map((keyItem) => {
+      slideKeys.map((keyItem) => {
         const pathChart = dataChartsPath[keyItem];
         return {
           path: pathChart + "/*",
@@ -69,19 +71,17 @@ const ComponentTestMemo = ({ parentRelation, keyName }) => {
               </Box>
             </Box>
           ),
-          handle: {
-            parentRelation,
-          },
+          handle: { parentRelation },
         };
       }),
     [parentRelation, keyName]
   );
 
   const location = useLocation();
-  const routes = useRoutes(popupRoutes, location);
+  const routes = useRoutes(slideRoutes, location);
   return (
     <Box sx={{ mt: 2 }}>
-      <RouteAnimation itemsRoutes={popupRoutes} mode="slide">
+      <RouteAnimation itemsRoutes={slideRoutes} mode="slide">
         {routes}
       </RouteAnimation>
     </Box>
@@ -89,6 +89,17 @@ const ComponentTestMemo = ({ parentRelation, keyName }) => {
 };
 
 export const ComponentTest = React.memo(ComponentTestMemo);
+
+
+
+
+
+
+
+
+
+
+
 
 const SlideContainer = ({ parentRelation, keyName }) => {
   const dataPath = {
@@ -109,61 +120,85 @@ const SlideContainer = ({ parentRelation, keyName }) => {
     },
   };
   const { pathChart, pathTable, pathExtendsTable } = dataPath[keyName];
+
+
   const slideRoutes = [
     {
       index: true,
+      // path: 'table-1',
       element: (
         <>
           <p>Chart: {keyName}</p>
           <Button
             variant={"outlined"}
             component={NavLink}
-            to={parentRelation + pathTable}
+            to={parentRelation +  pathTable}
           >
             Next Table
           </Button>
         </>
       ),
-      handle: { parentRelation },
+      handle: {   action: 'index' },
     },
+
+
+    // {
+    //   path: `/other/*`,
+    //   element: <Other parentRelation={parentRelation + '/other'} />,
+    //   handle: { parentRelation: parentRelation, action: '/*' },
+    // },
     {
-      path: pathTable,
-      element: (
-        <>
-          <p>Table: {keyName}</p>
-          <Button
-            variant={"outlined"}
-            component={NavLink}
-            to={parentRelation + pathExtendsTable}
-          >
-            Next Extends Table
-          </Button>
-          <Button variant={"outlined"} component={NavLink} to={parentRelation}>
-            Back Chart
-          </Button>
-        </>
-      ),
-      handle: { parentRelation },
+      path: `/*`,
+      element: <Other parentRelation={parentRelation} />,
+      handle: {  action: '/*' },
     },
-    {
-      path: pathExtendsTable,
-      element: (
-        <>
-          <p>Extends Table: {keyName}</p>
-          <Button
-            variant={"outlined"}
-            component={NavLink}
-            to={parentRelation + pathTable}
-          >
-            Back Table
-          </Button>
-        </>
-      ),
-      handle: { parentRelation },
-    },
+
+
+    // {
+    //   path: pathTable,
+    //   element: (
+    //     <>
+    //       <Header/>
+    //       <p>Table: {keyName}</p>
+    //       <Button
+    //         variant={"outlined"}
+    //         component={NavLink}
+    //         to={parentRelation + pathExtendsTable}
+    //       >
+    //         Next Extends Table
+    //       </Button>
+    //       <Button variant={"outlined"} component={NavLink} to={parentRelation}>
+    //         Back Chart
+    //       </Button>
+    //     </>
+    //   ),
+    //   handle: { parentRelation },
+    // },
+    // {
+    //   path: pathExtendsTable,
+    //   element: (
+    //     <>
+    //       <Header/>
+    //       <p>Extends Table: {keyName}</p>
+    //       <Button
+    //         variant={"outlined"}
+    //         component={NavLink}
+    //         to={parentRelation + pathTable}
+    //       >
+    //         Back Table
+    //       </Button>
+    //     </>
+    //   ),
+    //   handle: { parentRelation },
+    // },
+
+
+
   ];
   const location = useLocation();
   const routes = useRoutes(slideRoutes, location);
+
+
   return (
     <Box sx={{ mt: 2 }}>
       <RouteAnimation itemsRoutes={slideRoutes} mode="slide">

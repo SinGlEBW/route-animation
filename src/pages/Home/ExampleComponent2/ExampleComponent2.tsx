@@ -13,15 +13,6 @@ const ExampleComponent2Memo = () => {
   const location = useLocation();
   const itemsRoutes = useMemo(() => {
     return [
-      //   {
-      //     index: true,
-      //     element: (
-      //       <Box></Box>
-      //     ),
-      //     handle: {
-      //       parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME,
-      //     },
-      //   },
       {
         path: CONST_ROUTES_PRIVATE.HOME_SLIDE + "/*",
         element: (
@@ -33,9 +24,7 @@ const ExampleComponent2Memo = () => {
             />
           </Box>
         ),
-        handle: {
-          parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME,
-        },
+        handle: { parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME },
       },
     ];
   }, [state, location.pathname]);
