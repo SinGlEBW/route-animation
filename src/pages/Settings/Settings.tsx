@@ -61,8 +61,12 @@ export const Slide2 = () => {
       </Box>
       <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
       <RouteAnimation
-        mode='slide'
-        animation="vertical-slide"
+        onEnd={(a) => {
+        }}
+        duration={300}
+        mode='fade'
+        // animation="vertical-slide"
+        // sx={{ height: "100%" }}
         itemsRoutes={itemsRoutesForSlide2}
       >
         {routes}
@@ -154,13 +158,13 @@ const SettingsMemo = () => {
           {routes}
         </RouteAnimation>
       </Box>
-      <Portal container={document.body}>
+     
 
-      <RouteAnimation itemsRoutes={popupItemsRoutes} isPopup animation={'vertical-slide'} 
+      {/* <RouteAnimation itemsRoutes={popupItemsRoutes} isPopup animation={'vertical-slide'} 
         mode="slide" typeAnimation='no-destroy' >
         {routesPopup}
-      </RouteAnimation>
-          </Portal>
+      </RouteAnimation> */}
+       
     </div>
   );
 };

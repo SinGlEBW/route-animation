@@ -2,7 +2,8 @@ import { execSync } from 'child_process';
 const version = process.argv[2];
 const commit = process.argv[3];
 
-if (!version) {
+
+if (version !== undefined && Number.isInteger(version)) {
   console.error('Please provide a version number');
   process.exit(1);
 }

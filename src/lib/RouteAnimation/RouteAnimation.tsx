@@ -7,61 +7,30 @@ import { SlidePopupProps } from './Animation/ReactTransition/SlideTransition/Sli
 import { useDirection } from './hook/useDirection';
 
 
-type S = Omit<STProps, 'direction' | 'keyAnimation' | 'extendsRoutes' | 'handleDataRoute'> & {
-  itemsRoutes: ItemsRoutes;
+type ExcludeCommonProps = 'direction' | 'keyAnimation' | 'extendsRoutes' | 'handleDataRoute';
+
+type S = Omit<STProps, ExcludeCommonProps> & {
   direction?: Exclude<STProps['direction'], "undirected"> 
 } & SlidePopupProps;
 
-type F = Omit<FTProps, 'direction' | 'keyAnimation'> & {
-  itemsRoutes: ItemsRoutes
-};
+type F = Omit<FTProps, ExcludeCommonProps>
 
-
-export type RouteAnimationProps =  S | F;
-
-
-
-
-
+type RouteAnimationPropsCommon = S | F;
+export type RouteAnimationProps =  RouteAnimationPropsCommon & { itemsRoutes: ItemsRoutes };
 
 const RouteAnimationMemo: FC<RouteAnimationProps> = (props) => {
-  const { itemsRoutes, children, direction: initDirection,  ...p } = props as S;
-
+  const { itemsRoutes, children, direction: initDirection,  ...p } = props as RouteAnimationProps & { direction: S['direction']};
   const { handleDataRoute, extendsRoutes } = useGetKeyMotion(itemsRoutes);
   const direction = useDirection(handleDataRoute, initDirection);
  
-  // console.dir(handleDataRoute);
-
-//   const prevRouteRef = useRef<typeof handleDataRoute | null>(null);
-//   const direction = useRef<STProps['direction']>('forward');//undirected
-
-// /*--------------------------------------------------------------*/
-
-//   if (handleDataRoute && prevRouteRef.current?.path && prevRouteRef.current.path !== handleDataRoute.path) {
-//     const indexDiff = handleDataRoute.inx - prevRouteRef.current.inx;
-//     if (indexDiff > 0) {
-//       direction.current = 'forward';
-//     } else if (indexDiff < 0) {
-//       direction.current = 'back';
-//     } else if (indexDiff === 0) {
-
-//       direction.current = 'undirected';
-//       // direction.current = 'forward';
-//     }
-//   }
-
-//   prevRouteRef.current = handleDataRoute;
-
-
-
-
   return (
     <>
       <ReactTransition 
         keyAnimation={handleDataRoute.path as string} 
         direction={direction}
+        
         {...p} 
-        {...(p.mode === 'slide' && {extendsRoutes, handleDataRoute} as any)} >
+        {...({extendsRoutes, handleDataRoute})} >
         {children}
       </ReactTransition>
     </>
@@ -71,36 +40,6 @@ const RouteAnimationMemo: FC<RouteAnimationProps> = (props) => {
 export const RouteAnimation = React.memo(RouteAnimationMemo);
 
 
-
-
-
-
-
-
-
-/*
-    const inxPage = getIndexPage(handleDataRoute);
-  const [page, setPage] = useState({
-    numberPage: inxPage,
-    direction: !inxPage ? 'right' : 'left',
-    pageInfo: handleDataRoute
-  });
-
-  useEffect(() => {
-
-  }, [location])
-
-  const setDirection = (prevNumberPage, handleDataRoute) => {
-    const numberPage = getIndexPage(handleDataRoute);
-
-    const payloadState = {
-      numberPage,
-      direction: prevNumberPage > numberPage ? 'right' : 'left',
-      pageInfo: handleDataRoute
-    }
-    return payloadState
-  }
-*/
 
 /*
   framer-motion с Routes

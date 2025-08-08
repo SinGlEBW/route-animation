@@ -27,7 +27,7 @@ const FooterNavMemo = () => {
 
 
   return (
-    <Box >
+    <Box className="footer-nav" sx={{position: 'fixed', bottom: 0, left: 0, right: 0}}>
       <AppBar position="static" >
         <Tabs
           variant="fullWidth"

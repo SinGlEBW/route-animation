@@ -45,7 +45,7 @@ export const useGetKeyMotion = (routes:ItemsRoutes) => {
 
   let parentPath:string | undefined = '';
   if(parentMatches.length){
-
+    
     const findItemMatches = parentMatches.find((item) => findHandleDataRoute && findHandleDataRoute?.parentRelation === item.pathnameBase )
     if(findItemMatches){
       parentPath = findItemMatches?.route?.path 
@@ -59,8 +59,8 @@ export const useGetKeyMotion = (routes:ItemsRoutes) => {
     location,
     extendsRoutes: state.extendsRoutes,
     handleDataRoute: findHandleDataRoute
-    ? findHandleDataRoute 
-    : parentPath ? {path: parentPath, inx: -1} : state.extendsRoutes[0]// state.extendsRoutes[0] // { path: state.extendsRoutes[0].parentRelation, inx: -1 } //Добавлять из сохранённого общего стэйта 
+    ? {...findHandleDataRoute, pathname: location.pathname} 
+    : parentPath ? {path: parentPath, inx: -1, pathname: location.pathname} : {...state.extendsRoutes[0], pathname: location.pathname}// state.extendsRoutes[0] // { path: state.extendsRoutes[0].parentRelation, inx: -1 } //Добавлять из сохранённого общего стэйта 
   }
   
 

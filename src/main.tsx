@@ -6,6 +6,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material";
 
 import "./assets/scss/index.scss";
+import { Provider } from 'react-redux';
+import { store } from './store/store.tsx';
 export const themeApp = createTheme({
   palette: {
     mode: "dark",
@@ -21,6 +23,7 @@ export const themeApp = createTheme({
 const Router = (window as any).cordova ? HashRouter : BrowserRouter;
 ReactDOM.createRoot(document.getElementById("root")!).render(
 
+  <Provider store={store}>
     <CssBaseline>
       <ThemeProvider theme={themeApp}>
         <Router>
@@ -28,5 +31,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </Router>
       </ThemeProvider>
     </CssBaseline>
+  </Provider>
 
 );

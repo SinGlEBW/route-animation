@@ -3,7 +3,7 @@ import { FadeTransition, FadeTransitionProps } from './FadeTransition/FadeTransi
 import { SlideTransition, SlideTransitionProps } from './SlideTransition/SlideTransition';
 
 
-export type FTProps = FadeTransitionProps & { mode?: 'fade' | never; };
+export type FTProps = FadeTransitionProps & { mode?: 'fade' | never;  };
 export type STProps = SlideTransitionProps & { mode?: 'slide' | never; direction: SlideTransitionProps['direction'] };
 
 

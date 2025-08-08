@@ -1,4 +1,4 @@
-import { RouteObject, type RouteMatch } from "react-router-dom";
+import { RouteObject, useLocation, type RouteMatch } from "react-router-dom";
 import { v4 as uuid4 } from "uuid";
 
 type Handle = { handle?: { parentRelation?: string } };
@@ -38,7 +38,6 @@ export const getListRoutes = (routes: ItemsRoutes, parentMatches: RouteMatch<str
 
       const isParentRelation = handle && (("parentRelation" in handle) as boolean);
       const isChildren = !!(children && children.length);
-
 
       let currentPath = "";
       let pathParentRelation = "";

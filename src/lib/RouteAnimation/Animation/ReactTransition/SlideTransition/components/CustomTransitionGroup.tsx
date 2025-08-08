@@ -2,12 +2,10 @@ import { styled } from '@mui/material';
 import { TransitionGroup } from 'react-transition-group';
 import type { CommonTransitionProps } from '../../TransitionProps';
 import { getTransformStyles } from './helpers/getTransformStyles';
-import { getFadeStyles } from './helpers/getFadeStyles';
 
 export type Direction_OR = 'forward' | 'back' | 'undirected';
 
 export interface CustomTransitionProps {
-  direction: Direction_OR;
   isFadeSlide?:boolean;
   isPopup?: boolean;
 }
@@ -24,7 +22,7 @@ export const CustomTransitionGroup = styled(TransitionGroup, {
   shouldForwardProp: (prop) => {
     return !['isFadeSlide', 'easing', 'duration', 'direction', 'sx', 'sxItem', 'isPopup'].includes(prop as string)
   }
-})<CustomTransitionProps & Pick<CommonTransitionProps, 'duration' | 'easing' | 'sxItem'>>(({ duration, easing, sxItem = {}, isPopup = false, direction, isFadeSlide = false }) => {
+})<CustomTransitionProps & Pick<CommonTransitionProps, 'direction' | 'duration' | 'easing' | 'sxItem'>>(({ duration, easing, sxItem = {}, isPopup = false, direction, isFadeSlide = false }) => {
   return {
     display: 'grid',
     ...(isPopup && {

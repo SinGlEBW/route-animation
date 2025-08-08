@@ -13,6 +13,13 @@
   --background: var(--white);
   --accent: var(--black);
 }
+* {
+  overscroll-behavior: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 html{
   height: 100vh;
 }
@@ -33,6 +40,7 @@ body, #root{
   flex-grow: 1;
   overflow: hidden;
 }
+
 
 
 .progress-bar {

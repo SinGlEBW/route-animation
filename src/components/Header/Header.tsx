@@ -35,7 +35,7 @@ const HeaderMemo = () => {
   };
 
   const handleButtonMenu = () => {
-  
+
     handleCloseUserMenu();
     resetStore();
   };
@@ -44,38 +44,41 @@ const HeaderMemo = () => {
 
   };
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography variant="h5" noWrap sx={style.logoText}>
-            ЛОГО
-          </Typography>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Avatar" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-              keepMounted
-              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map(({ key, name }) => (
-                <MenuItem key={key} onClick={handleButtonMenu}>
-                  <Typography textAlign="center">{name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+    //<AppBar position="static" >
+    //<Container maxWidth="xl">
+    //<Toolbar disableGutters>
+    <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+      <Typography variant="h5" noWrap sx={style.logoText}>
+        ЛОГО
+      </Typography>
+      <Box sx={{ flexGrow: 0 }}>
+        <Tooltip title="Open settings">
+          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+            <Avatar alt="Avatar" src="/static/images/avatar/2.jpg" />
+          </IconButton>
+        </Tooltip>
+        <Menu
+          sx={{ mt: '45px' }}
+          id="menu-appbar"
+          anchorEl={anchorElUser}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          keepMounted
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          open={Boolean(anchorElUser)}
+          onClose={handleCloseUserMenu}
+        >
+          {settings.map(({ key, name }) => (
+            <MenuItem key={key} onClick={handleButtonMenu}>
+              <Typography textAlign="center">{name}</Typography>
+            </MenuItem>
+          ))}
+        </Menu>
+      </Box>
+    </Box>
+
+    //</Toolbar>
+    //</Container>
+    //</AppBar>
   );
 }
 export const Header = React.memo(HeaderMemo);

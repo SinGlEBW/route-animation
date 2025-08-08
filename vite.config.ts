@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc';
 import dts from 'vite-plugin-dts'
-import { extname, relative, resolve } from 'path'
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import { splitVendorChunkPlugin } from 'vite'
 import packageJson from './package.json';
 
+import { extname, relative, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url';
 import { glob } from 'glob'
 
@@ -22,6 +22,12 @@ export default defineConfig({
   ],
   server: {
     open: true
+  },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, './src'),
+      "@lib": resolve(__dirname, './src/lib/index'),
+    }
   },
   build: {
     copyPublicDir: false,
