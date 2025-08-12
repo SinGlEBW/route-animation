@@ -52,3 +52,7 @@
 
 ### Changed
 *   Анимация в mode="fade" перешла в StyledComponent
+
+## [1.1.35] - 2025-08-12
+### Fixed
+*   Исправление README. 

@@ -13,7 +13,7 @@ npm i route-animation
 >   **{ path: /pathRoute/*, ... }**
 >
 > - In Router v6, nested routes are specified in path without a parent route, so you need to specify
->   **{handle: { parentRelation: '/nameRoute' } ...}**
+>   **{handle: { parentRelation: '/nameRoute' } ...}**//It is not necessary to transmit
 >  ------------------------------------------------------------------------------------------
 
 ## Use 
@@ -54,14 +54,14 @@ const nestedRouter = [
   {
     path: '/1',
     element: (<div>Component1</div>),
-    handle: { parentRelation: '/settings' },
+    // handle: { parentRelation: '/settings' },
   },
   {
     path: '/2', // /2/* for the next nesting of routes
     element: (<div>Component2</div>),
-    handle: {
-      parentRelation: '/settings'// /settings/2 for the next route attachment, specify the dependent router
-    }
+    // handle: {
+    //   parentRelation: '/settings'// /settings/2 for the next route attachment, specify the dependent router
+    // }
   }
 ]
 
@@ -141,9 +141,9 @@ const itemsHomeRoutes: RouteObject[] = [
         </Box>
       </Box>
     ),
-    handle: {
-      parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME // home = /
-    },
+    // handle: {
+    //   parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME // home = /
+    // },
   },
   {
     path: '/1',
@@ -156,9 +156,9 @@ const itemsHomeRoutes: RouteObject[] = [
         </p>
       </Box>
     ),
-    handle: {
-      parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME
-    }
+    // handle: {
+    //   parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME
+    // }
   },
   {
     path: '/2',
@@ -170,9 +170,9 @@ const itemsHomeRoutes: RouteObject[] = [
         </p>
       </Box>
     ),
-    handle: {
-      parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME
-    }
+    // handle: {
+    //   parentRelation: CONST_ROUTES_PRIVATE.PAGE_HOME
+    // }
   },
 ]
 
@@ -219,9 +219,9 @@ const popupItemsRoutes: RouteObject[] = [
   {
     path: "/2/3",
     element: <Popup />,
-    handle: {
-      parentRelation: "/settings",
-    },
+    // handle: {
+    //   parentRelation: "/settings",
+    // },
   },
 ];
 
