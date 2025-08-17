@@ -13,7 +13,7 @@ export type FadeTransitionProps = CommonTransitionProps & {
 
 
 
-const FadeTransitionMemo:FC<FadeTransitionProps> = ({ keyAnimation, duration = 300, direction, children, classNameItem, sxItem, extendsRoutes, handleDataRoute, onEnter, onEnd,  ...props }) => {
+const FadeTransitionMemo:FC<FadeTransitionProps> = ({ className, keyAnimation, duration = 300, direction, children, classNameItem, sxItem, extendsRoutes, handleDataRoute, onEnter, onEnd,  ...props }) => {
   const nameAnimation = 'fade-scale';
    const handleOnEnd = (node: HTMLElement) => {
     const { path, pathname } = handleDataRoute;
@@ -30,7 +30,7 @@ const FadeTransitionMemo:FC<FadeTransitionProps> = ({ keyAnimation, duration = 3
       <CSSTransition
         key={keyAnimation}
         timeout={duration}
-        classNames={nameAnimation} 
+        classNames={cn(nameAnimation, className)} 
 
         {...props}
         onEnter={(node: HTMLElement, isAppearing: boolean) => {

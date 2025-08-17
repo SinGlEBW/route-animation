@@ -15,6 +15,7 @@ const RouteAnimationCustomMemo: FC<RouteAnimationCustomProps> = ({ itemsRoutes, 
   const routes = useRoutes(itemsRoutes, location)
   return (
     <RouteAnimation
+      className=''
       itemsRoutes={itemsRoutes}
       mode='slide'
       sx={{ height: '100%', width: '100%' }}

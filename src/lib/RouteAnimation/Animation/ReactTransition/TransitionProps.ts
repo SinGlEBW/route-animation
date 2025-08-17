@@ -18,6 +18,7 @@ type ChildElement = RouteElement | ReactElement<NavigateProps, typeof Navigate>;
 
 export interface CommonTransitionProps extends EventsTransitionProps{
   direction: Direction_OR;
+  className?:string;
   keyAnimation: string;
   children:  ReturnType<typeof useRoutes> //ChildElement | (ChildElement | undefined | null)[];
   sx?:SxProps;
