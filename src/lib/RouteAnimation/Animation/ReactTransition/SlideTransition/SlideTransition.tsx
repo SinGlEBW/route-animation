@@ -45,7 +45,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
     isPopup = false,
     onEnter, onExited, animation = 'slide', duration = 300, easing = 'ease', typeAnimation = 'destroy',
     keyAnimation, direction, sx, classNameItem, isFadeSlide = false, extendsRoutes,
-    sxItem = {}, handleDataRoute, children, className, ...p
+    sxItem = {}, handleDataRoute, children, className, onEnd, ...p
   } = props;
 
   const { onPopup } = props as SlideWithPopupProps;
@@ -163,7 +163,7 @@ const SlideTransitionMemo: FC<SlideTransitionProps> = (props) => {
     [typeAnimation, duration]
   );
 
-
+  
   return (
     <Portal disablePortal={!isPopup}>
       <CustomTransitionGroup
